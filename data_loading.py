@@ -59,14 +59,29 @@ class DataLoading:
         return data
 
     @staticmethod
-    def get_twitter_data_as_bags(file_find_expression='../../data/*.json.bz2') -> dask.bag:
+    def get_twitter_data_as_bags(file_find_expression='../../data/*.json.bz2',
+                                 remove_deleted_tweets: bool = True) -> db.Bag:
         """
         function to get twitter data as dask bags based on the given directory
         :param file_find_expression: unix like expression for finding the relevant files
+        :param remove_deleted_tweets: Filter out removed tweets?
+                                Don't turn this off if you want something working right out of the box.
         :return: dask bag that contains information on the tweets
         """
         bags = db.read_text(file_find_expression).map(DataLoading.read_compressed_bz2_json_text)
+        if remove_deleted_tweets:
+            bags = DataLoading.remove_deleted_tweets(bags)
         return bags
+
+    @staticmethod
+    def remove_deleted_tweets(data: db.Bag) -> db.Bag:
+        """
+        Function to remove unneeded tweets
+        Deleted tweets don't include various parameters, including the `lang` parameter
+        :param data: dask bags that contain the tweets
+        :return: returns the items that haven't been deleted
+        """
+        return data.filter(lambda x: 'lang' in x)
 
 
 if __name__ == '__main__':
