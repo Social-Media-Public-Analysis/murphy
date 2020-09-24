@@ -25,43 +25,41 @@ class Filter:
         self._column_name: str = column_name
         self._like: Any = like
 
-    def _set_column_name_and_like(self, column_name: str = None, like: Any = None) -> Tuple[str, Any]:
-        """
-        Function to set column_name and like internally.
-        If they have not been defined in the class, `ValueError` is raised
+    # def _set_column_name_and_like(self, column_name: str = None, like: Any = None) -> Tuple[str, Any]:
+    #     """
+    #     Function to set column_name and like internally.
+    #     If they have not been defined in the class, `ValueError` is raised
+    #
+    #     :param column_name:
+    #     :param like:
+    #     :return:
+    #     """
+    #     _column_name = column_name if column_name else self._column_name
+    #     _like = like if like else self._like
+    #
+    #     if not _column_name or not _like:
+    #         raise ValueError(f'column_name or like has not been defined in this object or in this function. '
+    #                          f'Please define them and try again')
+    #     return _column_name, _like
 
-        :param column_name:
-        :param like:
-        :return:
-        """
-        _column_name = column_name if column_name else self._column_name
-        _like = like if like else self._like
-
-        if not _column_name or not _like:
-            raise ValueError(f'column_name or like has not been defined in this object or in this function. '
-                             f'Please define them and try again')
-        return _column_name, _like
-
-    def filter(self, rows: Union[List[Dict], Dict[str, List], pd.DataFrame, dask_Dataframe], column_name: str = None,
-               like: Any = None, verbosity: bool = False) -> Union[dask_Dataframe, pd.DataFrame]:
+    @staticmethod
+    def filter(rows: Union[List[Dict], Dict[str, List], pd.DataFrame, dask_Dataframe], column_name: str = None,
+               like: Any = None) -> Union[dask_Dataframe, pd.DataFrame]:
         """
         Function to filter out rows that don't match.
 
         :param rows: rows that need to be filtered out
         :param column_name: name of the column to match against
         :param like: what the object is supposed to look like when converted to a string
-        :param verbosity: Display usage information
         :return:
         """
-
-        _column_name, _like = self._set_column_name_and_like(column_name=column_name, like=like)
 
         if type(rows) == dict or type(rows) == list:
             _data = pd.DataFrame(rows)
         else:
             _data = rows
 
-        return _data[_data[_column_name] == _like]
+        return _data[_data[column_name] == like]
 
 
 if __name__ == "__main__":
