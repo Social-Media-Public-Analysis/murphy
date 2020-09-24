@@ -1,4 +1,3 @@
-import dask
 import dask.bag as db
 import json
 import bz2
