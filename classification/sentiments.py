@@ -34,7 +34,8 @@ class Sentiments:
 
     @staticmethod
     def get_instance():
-        """Returns a singleton instance of this Sentiments class
+        """
+        Returns a singleton instance of this Sentiments class
         """
         if not Sentiments.__instance__:
             Sentiments()
