@@ -73,6 +73,13 @@ class DataLoading:
         return bags
 
     @staticmethod
+    def get_twitter_data_from_file_list(file_lst: List, remove_deleted_tweets: bool = True) -> db.Bag:
+        bags = db.read_text(file_lst).map(DataLoading.read_compressed_bz2_json_text)
+        if remove_deleted_tweets:
+            bags = DataLoading.remove_deleted_tweets(bags)
+        return bags
+
+    @staticmethod
     def remove_deleted_tweets(data: db.Bag) -> db.Bag:
         """
         Function to remove unneeded tweets
