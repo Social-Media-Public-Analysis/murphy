@@ -10,14 +10,19 @@ TODO:
 """
 
 from typing import Callable, Any, Dict, Iterable
+
 from tqdm import tqdm
 
 
 class Batches:
-    __shared_state = {}
+    __instance__ = None
 
     def __init__(self):
-        self.__dict__ = self.__shared_state
+        if Batches.__instance__ is None:
+            Batches.__instance__ = self
+
+        else:
+            raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
 
     @staticmethod
     def process_in_batches(file_paths: Iterable[str], read_func: Callable[[str], Any],

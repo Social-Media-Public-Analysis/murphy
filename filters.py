@@ -9,13 +9,13 @@ TODO:
     - Add tests
 """
 
-from typing import Union, List, Dict, Any, Tuple
+from typing import Union, List, Dict, Any
+
 import pandas as pd
 from dask.dataframe import DataFrame as dask_Dataframe
 
 
 class Filter:
-    __shared_state = {}
 
     def __init__(self, column_name: str = None, like: Any = None):
         """
@@ -23,9 +23,12 @@ class Filter:
         :param column_name: name of the column to match against
         :param like: what the object is supposed to look like when converted to a string
         """
-        self.__dict__ = self.__shared_state
-        self._column_name: str = column_name
-        self._like: Any = like
+        if Filter.__instance__ is None:
+            self.__dict__ = self.__shared_state
+            self._column_name: str = column_name
+            self._like: Any = like
+        else:
+            raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
 
     # def _set_column_name_and_like(self, column_name: str = None, like: Any = None) -> Tuple[str, Any]:
     #     """

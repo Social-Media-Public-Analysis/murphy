@@ -1,10 +1,10 @@
+import math
+from pprint import pprint
 from typing import Dict
 
-import math
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
-from pprint import pprint
 
 """
 Author: v2thegreat
@@ -30,7 +30,7 @@ class Sentiments:
             # self.flair_sentiment = flair.models.TextClassifier.load('en-sentiment')
 
         else:
-            raise RuntimeError("singleton Sentiments class is created more than once!")
+            raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
 
     @staticmethod
     def get_instance():
