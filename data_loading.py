@@ -7,6 +7,10 @@ from os import path
 
 
 class DataLoading:
+    __shared_state = {}
+
+    def __init__(self):
+        self.__dict__ = self.__shared_state
 
     @staticmethod
     def get_files_list(pathname: str, recursive: bool = False, suffix: str = '*.json*') -> List[str]:

@@ -15,13 +15,15 @@ from dask.dataframe import DataFrame as dask_Dataframe
 
 
 class Filter:
+    __shared_state = {}
+
     def __init__(self, column_name: str = None, like: Any = None):
         """
         Create Filter object that can filter out unneeded rows
         :param column_name: name of the column to match against
         :param like: what the object is supposed to look like when converted to a string
         """
-
+        self.__dict__ = self.__shared_state
         self._column_name: str = column_name
         self._like: Any = like
 

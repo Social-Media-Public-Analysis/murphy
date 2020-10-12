@@ -14,6 +14,10 @@ from tqdm import tqdm
 
 
 class Batches:
+    __shared_state = {}
+
+    def __init__(self):
+        self.__dict__ = self.__shared_state
 
     @staticmethod
     def process_in_batches(file_paths: Iterable[str], read_func: Callable[[str], Any],
