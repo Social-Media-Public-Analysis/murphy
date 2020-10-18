@@ -1,15 +1,16 @@
 import dask.bag as db
 import json
 import bz2
-from typing import List
+from typing import List, Union
 from glob import glob
 from os import path
+from pathlib import Path
 
 
 class DataLoading:
 
     @staticmethod
-    def get_files_list(pathname: str, recursive: bool = False, suffix: str = '*.json*') -> List[str]:
+    def get_files_list(pathname: Union[str, Path], recursive: bool = False, suffix: str = '*.json*') -> List[str]:
         """
         function to get files from the given pathname.
         Searches in the directory when pathname leads to a directory with the option for adding a custom suffix
@@ -34,20 +35,20 @@ class DataLoading:
         return files_list
 
     @staticmethod
-    def read_compressed_bz2_json_file(file_path: str) -> List[dict]:
+    def read_compressed_bz2_json_file(file_path: Union[str, Path]) -> List[dict]:
         """
         Read a compressed bz2 json file. Best used when you have a list of json files
         :param file_path: path of the file that needs to be read
         :return: List of json like dictionaries that contain information on tweets
         """
-        if 'json.bz2' not in file_path:
+        if 'json.bz2' not in str(file_path):
             raise ValueError('File Passed is not json.bz2 file')
         file = bz2.open(file_path)
         data = file.read().decode("utf-8").split('\n')[:-1]
         return [json.loads(tweet) for tweet in data]
 
     @staticmethod
-    def read_compressed_bz2_json_text(file_contents: str):
+    def read_compressed_bz2_json_text(file_contents: Union[str, Path]):
         """
         create json data from compressed bz2 text.
         Note: dask.bags.read_text might already uncompress this data, hence compression has been skipped here
@@ -58,7 +59,7 @@ class DataLoading:
         return data
 
     @staticmethod
-    def get_twitter_data_as_bags(file_find_expression='../../data/*.json.bz2',
+    def get_twitter_data_as_bags(file_find_expression: Union[str, Path, List[Path]] = '../../data/*.json.bz2',
                                  remove_deleted_tweets: bool = True) -> db.Bag:
         """
         function to get twitter data as dask bags based on the given directory
