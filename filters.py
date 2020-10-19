@@ -9,21 +9,21 @@ TODO:
     - Add tests
 """
 
-from typing import Union, List, Dict, Any, Tuple
+from typing import Union, List, Dict, Any
 import pandas as pd
 from dask.dataframe import DataFrame as dask_Dataframe
 
 
 class Filter:
-    def __init__(self, column_name: str = None, like: Any = None):
-        """
-        Create Filter object that can filter out unneeded rows
-        :param column_name: name of the column to match against
-        :param like: what the object is supposed to look like when converted to a string
-        """
-
-        self._column_name: str = column_name
-        self._like: Any = like
+    # def __init__(self, column_name: str = None, like: Any = None):
+    #     """
+    #     Create Filter object that can filter out unneeded rows
+    #     :param column_name: name of the column to match against
+    #     :param like: what the object is supposed to look like when converted to a string
+    #     """
+    #
+    #     self._column_name: str = column_name
+    #     self._like: Any = like
 
     # def _set_column_name_and_like(self, column_name: str = None, like: Any = None) -> Tuple[str, Any]:
     #     """
