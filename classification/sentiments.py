@@ -67,7 +67,7 @@ class Sentiments:
         return TextBlob(text=text).sentiment.polarity
 
     @staticmethod
-    def sentiment_analysis_flair(text: str) -> float:
+    def sentiment_analysis_flair(text: str) -> float:  # skip_tests
         """
         Run sentiment analysis using the library flair. Returns default sentiment
         Works based on a character-level LSTM neural network
@@ -100,5 +100,4 @@ class Sentiments:
 
 
 if __name__ == "__main__":
-    _sentence = 'The world is not a good place'
-    pprint(Sentiments.multiple_sentiment_analysis(_sentence))
+    pass
