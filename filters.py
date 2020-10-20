@@ -17,11 +17,9 @@ from dask.dataframe import DataFrame as dask_Dataframe
 class Filter:
     __instance__ = None
 
-    def __init__(self, column_name: str = None, like: Any = None):
+    def __init__(self):
         """
         Create Filter object that can filter out unneeded rows
-        :param column_name: name of the column to match against
-        :param like: what the object is supposed to look like when converted to a string
         """
         if Filter.__instance__ is None:
             Filter.__instance__ = self
