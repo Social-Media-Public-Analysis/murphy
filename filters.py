@@ -15,6 +15,7 @@ from dask.dataframe import DataFrame as dask_Dataframe
 
 
 class Filter:
+    __instance__ = None
 
     def __init__(self, column_name: str = None, like: Any = None):
         """
@@ -23,9 +24,8 @@ class Filter:
         :param like: what the object is supposed to look like when converted to a string
         """
         if Filter.__instance__ is None:
-            self.__dict__ = self.__shared_state
-            self._column_name: str = column_name
-            self._like: Any = like
+            Filter.__instance__ = self
+
         else:
             raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
 
