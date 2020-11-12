@@ -1,10 +1,10 @@
+import math
+from pprint import pprint
 from typing import Dict
 
-import math
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
-from pprint import pprint
 
 """
 Author: v2thegreat
@@ -30,7 +30,7 @@ class Sentiments:
             # self.flair_sentiment = flair.models.TextClassifier.load('en-sentiment')
 
         else:
-            raise RuntimeError("singleton Sentiments class is created more than once!")
+            raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
 
     @staticmethod
     def get_instance():
@@ -68,7 +68,7 @@ class Sentiments:
         return TextBlob(text=text).sentiment.polarity
 
     @staticmethod
-    def sentiment_analysis_flair(text: str) -> float:
+    def sentiment_analysis_flair(text: str) -> float:  # skip_tests
         """
         Run sentiment analysis using the library flair. Returns default sentiment
         Works based on a character-level LSTM neural network
@@ -101,5 +101,4 @@ class Sentiments:
 
 
 if __name__ == "__main__":
-    _sentence = 'The world is not a good place'
-    pprint(Sentiments.multiple_sentiment_analysis(_sentence))
+    pass

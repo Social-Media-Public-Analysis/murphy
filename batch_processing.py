@@ -14,6 +14,14 @@ from tqdm import tqdm
 
 
 class Batches:
+    __instance__ = None
+
+    def __init__(self):
+        if Batches.__instance__ is None:
+            Batches.__instance__ = self
+
+        else:
+            raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
 
     @staticmethod
     def process_in_batches(file_paths: Iterable[str], read_func: Callable[[str], Any],

@@ -1,13 +1,25 @@
-import dask.bag as db
-import json
 import bz2
 from typing import List, Union
 from glob import glob
 from os import path
 from pathlib import Path
+import json
+from glob import glob
+from os import path
+from typing import List
+
+import dask.bag as db
 
 
 class DataLoading:
+    __instance__ = None
+
+    def __init__(self):
+        if DataLoading.__instance__ is None:
+            DataLoading.__instance__ = self
+
+        else:
+            raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
 
     @staticmethod
     def get_files_list(pathname: Union[str, Path], recursive: bool = False, suffix: str = '*.json*') -> List[str]:
