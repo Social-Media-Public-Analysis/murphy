@@ -2,7 +2,7 @@ from setuptools import setup
 setup(
   name = 'smpamorpheus',
   packages = ['smpamorpheus'],
-  version = '0.2',
+  version = '0.3',
   license='MIT',
   description = 'Morpheus is a powerful processor that is used to analyze a ton of twitter data from the internet archive.',
   long_description='README.md',
@@ -10,7 +10,7 @@ setup(
   author = 'Ali Abbas',
   author_email = 'v2thegreat@gmail.com',
   url = 'https://github.com/Social-Media-Public-Analysis/smpamorpheus',
-  download_url = 'https://github.com/Social-Media-Public-Analysis/smpamorpheus/archive/v_02.tar.gz',
+  download_url = 'https://github.com/Social-Media-Public-Analysis/smpamorpheus/archive/v_03.tar.gz',
   keywords = ['DASK', 'BIG DATA', 'MACHINE LEARNING'],
   install_requires=[
             'tqdm',

@@ -1,6 +1,6 @@
 import unittest
 
-from morpheus.classification.sentiments import Sentiments
+from smpamorpheus.classification.sentiments import Sentiments
 import math
 
 
