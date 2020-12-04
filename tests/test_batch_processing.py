@@ -1,6 +1,6 @@
 import unittest
-from smpamorpheus.batch_processing import Batches
-from smpamorpheus.data_loading import DataLoading
+from murphy.batch_processing import Batches
+from murphy.data_loading import DataLoading
 from tests import CommonTestSetup
 
 
