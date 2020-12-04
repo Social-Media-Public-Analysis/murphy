@@ -1,16 +1,16 @@
 from setuptools import setup
 setup(
-  name = 'murphy',
-  packages = ['murphy'],
-  version = '0.5',
+  name = 'murpheus',
+  packages = ['murpheus'],
+  version = '0.6',
   license='MIT',
-  description = 'Murphy is a powerful processor that is used to analyze a ton of twitter data from the internet archive.',
-  long_description="""# Murphy\n\n* Murphy is a powerful processor that is used to analyze a ton of twitter data from the internet archive""",
+  description = 'Murpheus is a powerful processor that is used to analyze a ton of twitter data from the internet archive.',
+  long_description="""# Murpheus\n\n* Murpheus is a powerful processor that is used to analyze a ton of twitter data from the internet archive""",
   long_description_content_type="text/markdown",
   author = 'Ali Abbas',
   author_email = 'v2thegreat@gmail.com',
-  url = 'https://github.com/Social-Media-Public-Analysis/murphy',
-  download_url = 'https://github.com/Social-Media-Public-Analysis/murphy/archive/v_05.tar.gz',
+  url = 'https://github.com/Social-Media-Public-Analysis/murpheus',
+  download_url = 'https://github.com/Social-Media-Public-Analysis/murpheus/archive/v_06.tar.gz',
   keywords = ['DASK', 'BIG DATA', 'MACHINE LEARNING'],
   install_requires=[
             'tqdm',

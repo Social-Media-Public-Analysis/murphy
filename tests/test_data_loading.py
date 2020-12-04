@@ -1,6 +1,6 @@
 import unittest
 from dask.bag import Bag
-from murphy.data_loading import DataLoading
+from murpheus.data_loading import DataLoading
 from tests import CommonTestSetup
 from pathlib import Path
 

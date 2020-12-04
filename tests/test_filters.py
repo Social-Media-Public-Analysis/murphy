@@ -1,7 +1,7 @@
 import unittest
-from murphy.data_loading import DataLoading
+from murpheus.data_loading import DataLoading
 from tests import CommonTestSetup
-from murphy.filters import Filter
+from murpheus.filters import Filter
 
 
 class FilterTestCase(unittest.TestCase):
