@@ -1,5 +1,5 @@
-from morpheus.batch_processing import Batches
-from morpheus.data_loading import DataLoading
+from smpamorpheus.batch_processing import Batches
+from smpamorpheus.data_loading import DataLoading
 
 
 def counter(tweets):

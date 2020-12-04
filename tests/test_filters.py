@@ -1,7 +1,7 @@
 import unittest
-from morpheus.data_loading import DataLoading
+from smpamorpheus.data_loading import DataLoading
 from tests import CommonTestSetup
-from morpheus.filters import Filter
+from smpamorpheus.filters import Filter
 
 
 class FilterTestCase(unittest.TestCase):

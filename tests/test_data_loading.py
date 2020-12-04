@@ -1,6 +1,6 @@
 import unittest
 from dask.bag import Bag
-from morpheus.data_loading import DataLoading
+from smpamorpheus.data_loading import DataLoading
 from tests import CommonTestSetup
 from pathlib import Path
 
