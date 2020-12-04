@@ -1,6 +1,6 @@
 import unittest
 
-from murphy.classification.sentiments import Sentiments
+from murpheus.classification.sentiments import Sentiments
 import math
 
 
