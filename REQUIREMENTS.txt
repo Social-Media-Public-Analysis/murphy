@@ -1,0 +1,7 @@
+tqdm
+numpy
+pandas
+dask[complete]
+nltk
+pytest
+pyfiglet
