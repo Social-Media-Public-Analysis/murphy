@@ -21,7 +21,7 @@ class BatchProcessingTestCase(unittest.TestCase):
                                                        read_func=DataLoading.read_compressed_bz2_json_file,
                                                        func_to_apply=len)
         results = list(results)
-        self.assertListEqual(results, [5758, 5480])
+        self.assertTrue(set(results), {5758, 5480})
 
     def test_singleton(self):
         try:
