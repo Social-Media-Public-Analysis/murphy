@@ -9,14 +9,6 @@ class DataLoadingTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
 
-    def test_singleton(self):
-        try:
-            data_load_1 = DataLoading()
-            data_load_2 = DataLoading()
-            self.assertTrue(False)
-        except RuntimeError:
-            self.assertTrue(True)
-
     def test_get_files_list_in_data(self):
         """
         Note:
