@@ -70,13 +70,15 @@ class DataLoadingTestCase(unittest.TestCase):
 
     def test_remove_deleted_tweets(self):
         """
-        Note: Function assumes that there is a removed tweet in the first 20 tweets.
+        Note: Function assumes that there is a removed tweet in the first 100 tweets.
+
+        Ensure that this is validated to not be the case, as there is a random element to it
         """
         files_list = list(CommonTestSetup.get_sample_files_list())
         bags = DataLoading.get_twitter_data_as_bags(files_list, remove_deleted_tweets=False)
         removed_tweets = DataLoading.remove_deleted_tweets(bags)
-        bags = bags.take(20)
-        computed = removed_tweets.take(20)
+        bags = bags.take(100)
+        computed = removed_tweets.take(100)
         self.assertNotEqual(bags, computed)
 
 
