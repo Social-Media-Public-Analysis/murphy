@@ -21,38 +21,7 @@ class Filter:
         """
         Create Filter object that can filter out unneeded rows
         """
-        if Filter.__instance__ is None:
-            Filter.__instance__ = self
-
-        else:
-            raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
-
-    # def __init__(self, column_name: str = None, like: Any = None):
-    #     """
-    #     Create Filter object that can filter out unneeded rows
-    #     :param column_name: name of the column to match against
-    #     :param like: what the object is supposed to look like when converted to a string
-    #     """
-    #
-    #     self._column_name: str = column_name
-    #     self._like: Any = like
-
-    # def _set_column_name_and_like(self, column_name: str = None, like: Any = None) -> Tuple[str, Any]:
-    #     """
-    #     Function to set column_name and like internally.
-    #     If they have not been defined in the class, `ValueError` is raised
-    #
-    #     :param column_name:
-    #     :param like:
-    #     :return:
-    #     """
-    #     _column_name = column_name if column_name else self._column_name
-    #     _like = like if like else self._like
-    #
-    #     if not _column_name or not _like:
-    #         raise ValueError(f'column_name or like has not been defined in this object or in this function. '
-    #                          f'Please define them and try again')
-    #     return _column_name, _like
+        pass
 
     @staticmethod
     def filter(rows: Union[List[Dict], Dict[str, List], pd.DataFrame, dask_Dataframe], column_name: str = None,
