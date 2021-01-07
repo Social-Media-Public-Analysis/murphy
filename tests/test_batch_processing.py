@@ -22,11 +22,3 @@ class BatchProcessingTestCase(unittest.TestCase):
                                                        func_to_apply=len)
         results = list(results)
         self.assertTrue(set(results), {5758, 5480})
-
-    def test_singleton(self):
-        try:
-            batch_1 = Batches()
-            batch_1 = Batches()
-            self.assertTrue(False)
-        except RuntimeError:
-            self.assertTrue(True)

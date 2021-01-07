@@ -1,7 +1,8 @@
 """
 author: v2thegreat (v2thegreat@gmail.com)
 
-Package to process tweets from the data_loading_tbd in batches to reduce the workload on the scheduler based on time series
+Package to process tweets from the data_loading in batches to reduce the workload on the scheduler
+by applying various functions in batches
 
 TODO:
     - This package is written with the hopes to better understand what problems processing such a dataset would be
@@ -17,11 +18,7 @@ class Batches:
     __instance__ = None
 
     def __init__(self):
-        if Batches.__instance__ is None:
-            Batches.__instance__ = self
-
-        else:
-            raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
+        pass
 
     @staticmethod
     def process_in_batches(file_paths: Iterable[str], read_func: Callable[[str], Any],
