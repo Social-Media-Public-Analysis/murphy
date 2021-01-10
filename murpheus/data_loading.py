@@ -1,14 +1,12 @@
 import bz2
-from typing import List, Union
-from glob import glob
-from os import path
 from pathlib import Path
 import json
 from glob import glob
 from os import path
-from typing import List
+from typing import List, Union
 
 import dask.bag as db
+import dask.dataframe as dd
 
 
 class DataLoading:
@@ -66,6 +64,25 @@ class DataLoading:
         """
         data = json.loads(file_contents)
         return data
+
+    @staticmethod
+    def get_twitter_data_as_dataframes(
+            file_find_expression: Union[str, Path, List[Path]] = '../../data/*.json.bz2',
+            remove_deleted_tweets: bool = True) -> dd.DataFrame:
+        """
+        Function to get twitter data as dask bags based on the given directory
+        :param file_find_expression: unix like expression for finding the relevant files,
+        defaults to directory where dozent might put the data (`../../data/*.json.bz2`)
+        :param remove_deleted_tweets: Filter out removed tweets?
+                Don't turn this off if you want something working right out of the box.
+        :return: dask dataframe that contains information on the tweets
+        """
+        bags = db.read_text(file_find_expression).map(DataLoading.read_compressed_bz2_json_text)
+
+        if remove_deleted_tweets:
+            bags = DataLoading.remove_deleted_tweets(bags)
+
+        return bags.to_dataframe()
 
     @staticmethod
     def get_twitter_data_as_bags(
