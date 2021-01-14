@@ -1,6 +1,7 @@
 import unittest
 from dask.bag import Bag
-from smpamorpheus.data_loading import DataLoading
+from dask.dataframe import DataFrame
+from murpheus.data_loading import DataLoading
 from tests import CommonTestSetup
 from pathlib import Path
 
@@ -8,14 +9,6 @@ from pathlib import Path
 class DataLoadingTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
-
-    def test_singleton(self):
-        try:
-            data_load_1 = DataLoading()
-            data_load_2 = DataLoading()
-            self.assertTrue(False)
-        except RuntimeError:
-            self.assertTrue(True)
 
     def test_get_files_list_in_data(self):
         """
@@ -60,8 +53,13 @@ class DataLoadingTestCase(unittest.TestCase):
             self.assertTrue(True)
 
     def test_get_twitter_data_as_bags(self):
-        data = DataLoading.get_twitter_data_as_bags('../../data/test_sample_files.json.bz2')
+        # TODO: Validate that this works well
+        data = DataLoading.get_twitter_data_as_bags(self.path_prefix / 'data/test_data/test_sample_files.json.bz2')
         self.assertEqual(type(data), Bag)
+
+    def test_get_twitter_data_as_dataframe(self):
+        data = DataLoading.get_twitter_data_as_dataframes(self.path_prefix / 'data/test_data/test_sample_files.json.bz2')
+        self.assertEqual(type(data), DataFrame)
 
     def test_get_twitter_data_from_file_list(self):
         data = DataLoading.get_twitter_data_from_file_list(['../../data/test_sample_files.json.bz2',
@@ -70,13 +68,15 @@ class DataLoadingTestCase(unittest.TestCase):
 
     def test_remove_deleted_tweets(self):
         """
-        Note: Function assumes that there is a removed tweet in the first 20 tweets.
+        Note: Function assumes that there is a removed tweet in the first 100 tweets.
+
+        Ensure that this is validated to not be the case, as there is a random element to it
         """
         files_list = list(CommonTestSetup.get_sample_files_list())
         bags = DataLoading.get_twitter_data_as_bags(files_list, remove_deleted_tweets=False)
         removed_tweets = DataLoading.remove_deleted_tweets(bags)
-        bags = bags.take(20)
-        computed = removed_tweets.take(20)
+        bags = bags.take(100)
+        computed = removed_tweets.take(100)
         self.assertNotEqual(bags, computed)
 
 

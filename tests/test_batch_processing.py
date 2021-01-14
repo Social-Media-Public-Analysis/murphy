@@ -1,6 +1,6 @@
 import unittest
-from smpamorpheus.batch_processing import Batches
-from smpamorpheus.data_loading import DataLoading
+from murpheus.batch_processing import Batches
+from murpheus.data_loading import DataLoading
 from tests import CommonTestSetup
 
 
@@ -21,12 +21,4 @@ class BatchProcessingTestCase(unittest.TestCase):
                                                        read_func=DataLoading.read_compressed_bz2_json_file,
                                                        func_to_apply=len)
         results = list(results)
-        self.assertListEqual(results, [5758, 5480])
-
-    def test_singleton(self):
-        try:
-            batch_1 = Batches()
-            batch_1 = Batches()
-            self.assertTrue(False)
-        except RuntimeError:
-            self.assertTrue(True)
+        self.assertTrue(set(results), {5758, 5480})
