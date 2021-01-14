@@ -10,14 +10,6 @@ class DataLoadingTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
 
-    def test_singleton(self):
-        try:
-            data_load_1 = DataLoading()
-            data_load_2 = DataLoading()
-            self.assertTrue(False)
-        except RuntimeError:
-            self.assertTrue(True)
-
     def test_get_files_list_in_data(self):
         """
         Note:
@@ -62,11 +54,11 @@ class DataLoadingTestCase(unittest.TestCase):
 
     def test_get_twitter_data_as_bags(self):
         # TODO: Validate that this works well
-        data = DataLoading.get_twitter_data_as_bags('../data/test_data/test_sample_files.json.bz2')
+        data = DataLoading.get_twitter_data_as_bags(self.path_prefix / 'data/test_data/test_sample_files.json.bz2')
         self.assertEqual(type(data), Bag)
 
     def test_get_twitter_data_as_dataframe(self):
-        data = DataLoading.get_twitter_data_as_dataframes('../data/test_data/test_sample_files.json.bz2')
+        data = DataLoading.get_twitter_data_as_dataframes(self.path_prefix / 'data/test_data/test_sample_files.json.bz2')
         self.assertEqual(type(data), DataFrame)
 
     def test_get_twitter_data_from_file_list(self):

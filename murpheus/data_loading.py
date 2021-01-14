@@ -13,12 +13,7 @@ class DataLoading:
     __instance__ = None
 
     def __init__(self):
-        if DataLoading.__instance__ is None:
-            DataLoading.__instance__ = self
-
-        else:
-            raise RuntimeError(
-                f"Singleton {self.__class__.__name__} class is created more than once!")
+        pass
 
     @staticmethod
     def get_files_list(pathname: Union[str, Path], recursive: bool = False,

@@ -8,14 +8,6 @@ class FilterTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
 
-    def test_singleton(self):
-        try:
-            filter_1 = Filter()
-            filter_2 = Filter()
-            self.assertTrue(False)
-        except RuntimeError:
-            self.assertTrue(True)
-
     def test_filter_dask_dataframe(self):
         data = DataLoading.get_twitter_data_as_bags(list(CommonTestSetup.get_sample_files_list())).to_dataframe()
         results = Filter.filter(rows=data, column_name='lang', like='en')
