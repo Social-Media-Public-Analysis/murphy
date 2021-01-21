@@ -25,7 +25,7 @@ class DataLoadingTestCase(unittest.TestCase):
     def test_get_files_list_when_no_files_present(self):
         print(self.data_path)
         try:
-            self.data_loader._get_files_list('../../data/no-files.abcd')
+            self.data_loader._get_files_list('../../data/no-files.txt')
             self.assertFalse(False)
         except ValueError:
             self.assertTrue(True)
@@ -41,7 +41,7 @@ class DataLoadingTestCase(unittest.TestCase):
             self.path_prefix / 'data/test_data/test_sample_files.json.bz2')
         self.assertEqual(type(data), list)
 
-    def test_read_compressed_bz2_json_file_when_file_isnt_bz2(self):
+    def test_read_compressed_bz2_json_file_when_file_is_not_bz2(self):
         try:
             self.data_loader._read_compressed_bz2_json_file(self.path_prefix / 'data/test_data/test_sample_files.json')
             self.assertFalse(False)
