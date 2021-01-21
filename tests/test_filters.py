@@ -2,6 +2,8 @@ import unittest
 from murpheus.data_loader import DataLoader
 from tests import CommonTestSetup
 from murpheus.filters import Filter
+import pandas as pd
+import dask.dataframe as dd
 
 
 class FilterTestCase(unittest.TestCase):
@@ -17,12 +19,37 @@ class FilterTestCase(unittest.TestCase):
 
     def test_is_emoji(self):
         self.assertTrue(Filter._is_emoji(self._test_emoji_string))
+        self.assertFalse(Filter._is_emoji("This string doesn't contain an emoji"))
 
     def test_remove_emoji(self):
         self.assertEqual('Python is fun ', Filter._remove_emojis(self._test_emoji_string))
 
     def test_remove_retweet(self):
         self.assertEqual('Hello people!', Filter._remove_retweet(self._test_retweet_string))
+
+    def test_filter_emoji(self):
+        input_data = [['Python is fun ❤', 'other'], ['nick', 'other'], ['juli', 'other']]
+        output_data = [['Python is fun ', 'other'], ['nick', 'other'], ['juli', 'other']]
+        df = pd.DataFrame(input_data, columns=['text', 'other'])
+        output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+        temp_df = dd.from_pandas(df, npartitions=1)
+        self.assertTrue(Filter.filter_emoji(temp_df).compute().equals(output_df))
+
+    def test_filter_retweet_text(self):
+        input_data = [[self._test_retweet_string, 'other'], ['nick', 'other'], ['juli', 'other']]
+        output_data = [['Hello people!', 'other'], ['nick', 'other'], ['juli', 'other']]
+        df = pd.DataFrame(input_data, columns=['text', 'other'])
+        output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+        temp_df = dd.from_pandas(df, npartitions=1)
+        self.assertTrue(Filter.filter_retweet_text(temp_df).compute().equals(output_df))
+
+    def test_remove_truncated_tweets(self):
+        input_data = [['…', 'other'], ['nick', 'other'], ['juli', 'other']]
+        output_data = [['nick', 'other'], ['juli', 'other']]
+        df = pd.DataFrame(input_data, columns=['text', 'other'])
+        output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+        temp_df = dd.from_pandas(df, npartitions=1)
+        self.assertTrue(Filter.remove_truncated_tweets(temp_df).compute().equals(output_df))
 
 
 if __name__ == "__main__":
