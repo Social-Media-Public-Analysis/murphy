@@ -8,17 +8,17 @@ class FilterTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
         self.data_loader = DataLoader(
-            file_find_expression=self.path_prefix / 'data/test_data/test_sample_files.json.bz2')
+            file_find_expression=self.path_prefix / 'data/test_data/test_sample_files.json.bz2',
+            remove_emoji=False,
+            remove_retweets=False,
+            remove_truncated_tweets=False)
+        self._test_emoji_string = 'Python is fun ❤'
 
-    def test_filter_dask_dataframe(self):
-        data = self.data_loader.twitter_dataframe
-        results = Filter.filter(rows=data, column_name='lang', like='en')
-        self.assertTrue(results.compute().shape[0] != 0)
+    def test_is_emoji(self):
+        self.assertTrue(Filter._is_emoji(self._test_emoji_string))
 
-    def test_filter_list(self):
-        data = {'fruit': ['apples', 'oranges', 'tomatoes'], 'quantity': [1, 5, 7]}
-        result = Filter.filter(data, column_name='fruit', like='apples')
-        self.assertTrue(result['fruit'].values[0] == 'apples')
+    def test_remove_emoji(self):
+        self.assertEqual('Python is fun ', Filter._remove_emojis(self._test_emoji_string))
 
 
 if __name__ == "__main__":

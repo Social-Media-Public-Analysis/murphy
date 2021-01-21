@@ -8,14 +8,24 @@ from typing import List, Union
 import dask.bag as db
 import dask.dataframe as dd
 
+from murpheus.filters import Filter
+
 
 class DataLoader:
     __instance__ = None
 
-    def __init__(self, file_find_expression: Union[str, Path, List[Path]] = '../../data/**/*.json.bz2'):
+    def __init__(self,
+                 file_find_expression: Union[str, Path, List[Path]],
+                 remove_emoji: bool = True,
+                 remove_retweets: bool = True,
+                 remove_truncated_tweets: bool = True
+                 ):
+
+        self.filter = Filter(remove_emoji, remove_retweets, remove_truncated_tweets)
         self.file_find_expression = file_find_expression
         self.twitter_dataframe = self._get_twitter_data_as_dataframes()
         self.twitter_bags = self._get_twitter_data_as_bags()
+        self.twitter_dataframe = self.filter.run_filters(self.twitter_dataframe)
 
     @staticmethod
     def _get_files_list(pathname: Union[str, Path], recursive: bool = False,
