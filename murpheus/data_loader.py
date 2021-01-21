@@ -9,15 +9,17 @@ import dask.bag as db
 import dask.dataframe as dd
 
 
-class DataLoading:
+class DataLoader:
     __instance__ = None
 
-    def __init__(self):
-        pass
+    def __init__(self, file_find_expression: Union[str, Path, List[Path]] = '../../data/**/*.json.bz2'):
+        self.file_find_expression = file_find_expression
+        self.twitter_dataframe = self._get_twitter_data_as_dataframes()
+        self.twitter_bags = self._get_twitter_data_as_bags()
 
     @staticmethod
-    def get_files_list(pathname: Union[str, Path], recursive: bool = False,
-                       suffix: str = '*.json*') -> List[str]:
+    def _get_files_list(pathname: Union[str, Path], recursive: bool = False,
+                        suffix: str = '*.json*') -> List[str]:
         """
         function to get files from the given pathname.
         Searches in the directory when pathname leads to a directory with the option for adding a custom suffix
@@ -42,7 +44,7 @@ class DataLoading:
         return files_list
 
     @staticmethod
-    def read_compressed_bz2_json_file(file_path: Union[str, Path]) -> List[dict]:
+    def _read_compressed_bz2_json_file(file_path: Union[str, Path]) -> List[dict]:
         """
         Read a compressed bz2 json file. Best used when you have a list of json files
         :param file_path: path of the file that needs to be read
@@ -55,7 +57,7 @@ class DataLoading:
         return [json.loads(tweet) for tweet in data]
 
     @staticmethod
-    def read_compressed_bz2_json_text(file_contents: Union[str, Path]):
+    def _read_compressed_bz2_json_text(file_contents: Union[str, Path]):
         """
         create json data from compressed bz2 text.
         Note: dask.bags.read_text might already uncompress this data, hence compression has been skipped here
@@ -65,51 +67,42 @@ class DataLoading:
         data = json.loads(file_contents)
         return data
 
-    @staticmethod
-    def get_twitter_data_as_dataframes(
-            file_find_expression: Union[str, Path, List[Path]] = '../../data/*.json.bz2',
-            remove_deleted_tweets: bool = True) -> dd.DataFrame:
+    def _get_twitter_data_as_dataframes(self, remove_deleted_tweets: bool = True) -> dd.DataFrame:
         """
         Function to get twitter data as dask bags based on the given directory
-        :param file_find_expression: unix like expression for finding the relevant files,
-        defaults to directory where dozent might put the data (`../../data/*.json.bz2`)
         :param remove_deleted_tweets: Filter out removed tweets?
                 Don't turn this off if you want something working right out of the box.
         :return: dask dataframe that contains information on the tweets
         """
-        bags = db.read_text(file_find_expression).map(DataLoading.read_compressed_bz2_json_text)
+        bags = db.read_text(self.file_find_expression).map(DataLoader._read_compressed_bz2_json_text)
 
         if remove_deleted_tweets:
-            bags = DataLoading.remove_deleted_tweets(bags)
+            bags = DataLoader._remove_deleted_tweets(bags)
 
         return bags.to_dataframe()
 
-    @staticmethod
-    def get_twitter_data_as_bags(
-            file_find_expression: Union[str, Path, List[Path]] = '../../data/*.json.bz2',
-            remove_deleted_tweets: bool = True) -> db.Bag:
+    def _get_twitter_data_as_bags(self, remove_deleted_tweets: bool = True) -> db.Bag:
         """
         function to get twitter data as dask bags based on the given directory
-        :param file_find_expression: unix like expression for finding the relevant files
         :param remove_deleted_tweets: Filter out removed tweets?
                                 Don't turn this off if you want something working right out of the box.
         :return: dask bag that contains information on the tweets
         """
-        bags = db.read_text(file_find_expression).map(DataLoading.read_compressed_bz2_json_text)
+        bags = db.read_text(self.file_find_expression).map(DataLoader._read_compressed_bz2_json_text)
         if remove_deleted_tweets:
-            bags = DataLoading.remove_deleted_tweets(bags)
+            bags = DataLoader._remove_deleted_tweets(bags)
         return bags
 
     @staticmethod
-    def get_twitter_data_from_file_list(file_lst: List,
-                                        remove_deleted_tweets: bool = True) -> db.Bag:
-        bags = db.read_text(file_lst).map(DataLoading.read_compressed_bz2_json_text)
+    def _get_twitter_data_from_file_list(file_lst: List,
+                                         remove_deleted_tweets: bool = True) -> db.Bag:
+        bags = db.read_text(file_lst).map(DataLoader._read_compressed_bz2_json_text)
         if remove_deleted_tweets:
-            bags = DataLoading.remove_deleted_tweets(bags)
+            bags = DataLoader._remove_deleted_tweets(bags)
         return bags
 
     @staticmethod
-    def remove_deleted_tweets(data: db.Bag) -> db.Bag:
+    def _remove_deleted_tweets(data: db.Bag) -> db.Bag:
         """
         Function to remove unneeded tweets
         Deleted tweets don't include various parameters, including the `lang` parameter

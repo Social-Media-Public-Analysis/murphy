@@ -1,5 +1,5 @@
 import unittest
-from murpheus.data_loading import DataLoading
+from murpheus.data_loader import DataLoader
 from tests import CommonTestSetup
 from murpheus.filters import Filter
 
@@ -9,7 +9,7 @@ class FilterTestCase(unittest.TestCase):
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
 
     def test_filter_dask_dataframe(self):
-        data = DataLoading.get_twitter_data_as_bags(list(CommonTestSetup.get_sample_files_list())).to_dataframe()
+        data = DataLoader._get_twitter_data_as_bags(list(CommonTestSetup.get_sample_files_list())).to_dataframe()
         results = Filter.filter(rows=data, column_name='lang', like='en')
         self.assertTrue(results.compute().shape[0] != 0)
 
