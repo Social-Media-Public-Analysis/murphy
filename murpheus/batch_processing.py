@@ -17,9 +17,6 @@ from tqdm import tqdm
 class Batches:
     __instance__ = None
 
-    def __init__(self):
-        pass
-
     @staticmethod
     def process_in_batches(file_paths: Iterable[str], read_func: Callable[[str], Any],
                            func_to_apply: Callable[[Any], Any],
