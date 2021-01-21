@@ -132,3 +132,7 @@ dmypy.json
 .idea/
 dozent/__pycache__/
 tests/__pycache__/
+
+# working_method
+
+!data/test_data
