@@ -19,7 +19,7 @@ import re
 
 class Filter:
     _demojifier_regex = r':.+?:'
-    _retweet_regex = r':RT @(.+?):'
+    _retweet_regex = r'RT @(.+?):'
     _truncated_string = '…'
 
     def __init__(self, remove_emoji: bool = True, remove_retweets: bool = False, remove_truncated_tweets: bool = False):
