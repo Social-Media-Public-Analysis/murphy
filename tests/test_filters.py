@@ -7,9 +7,11 @@ from murpheus.filters import Filter
 class FilterTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
+        self.data_loader = DataLoader(
+            file_find_expression=self.path_prefix / 'data/test_data/test_sample_files.json.bz2')
 
     def test_filter_dask_dataframe(self):
-        data = DataLoader._get_twitter_data_as_bags(list(CommonTestSetup.get_sample_files_list())).to_dataframe()
+        data = self.data_loader.twitter_dataframe
         results = Filter.filter(rows=data, column_name='lang', like='en')
         self.assertTrue(results.compute().shape[0] != 0)
 
