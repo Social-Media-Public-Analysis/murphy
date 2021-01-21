@@ -4,6 +4,7 @@ from tests import CommonTestSetup
 from murpheus.filters import Filter
 import pandas as pd
 import dask.dataframe as dd
+from itertools import product
 
 
 class FilterTestCase(unittest.TestCase):
@@ -50,6 +51,37 @@ class FilterTestCase(unittest.TestCase):
         output_df = pd.DataFrame(output_data, columns=['text', 'other'])
         temp_df = dd.from_pandas(df, npartitions=1)
         self.assertTrue(Filter.remove_truncated_tweets(temp_df).compute().equals(output_df))
+
+    def test_run_filters(self):
+        # runs the respective tests for when each of the flags are running
+        bool_flag = [True, False]
+        for emoji_flag, retweets_flag, truncated_flag in product(bool_flag, bool_flag, bool_flag):
+            filter_obj = Filter(remove_emoji=emoji_flag,
+                                remove_retweets=retweets_flag,
+                                remove_truncated_tweets=truncated_flag)
+            if emoji_flag:
+                input_data = [['Python is fun ❤', 'other'], ['nick', 'other'], ['juli', 'other']]
+                output_data = [['Python is fun ', 'other'], ['nick', 'other'], ['juli', 'other']]
+                df = pd.DataFrame(input_data, columns=['text', 'other'])
+                output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+                temp_df = dd.from_pandas(df, npartitions=1)
+                self.assertTrue(filter_obj.run_filters(temp_df).compute().equals(output_df))
+
+            if retweets_flag:
+                input_data = [[self._test_retweet_string, 'other'], ['nick', 'other'], ['juli', 'other']]
+                output_data = [['Hello people!', 'other'], ['nick', 'other'], ['juli', 'other']]
+                df = pd.DataFrame(input_data, columns=['text', 'other'])
+                output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+                temp_df = dd.from_pandas(df, npartitions=1)
+                self.assertTrue(filter_obj.run_filters(temp_df).compute().equals(output_df))
+
+            if truncated_flag:
+                input_data = [['…', 'other'], ['nick', 'other'], ['juli', 'other']]
+                output_data = [['nick', 'other'], ['juli', 'other']]
+                df = pd.DataFrame(input_data, columns=['text', 'other'])
+                output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+                temp_df = dd.from_pandas(df, npartitions=1)
+                self.assertTrue(Filter.remove_truncated_tweets(temp_df).compute().equals(output_df))
 
 
 if __name__ == "__main__":
