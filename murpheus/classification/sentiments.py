@@ -67,28 +67,6 @@ class Sentiments:
 
         return TextBlob(text=text).sentiment.polarity
 
-    @staticmethod
-    def sentiment_analysis_flair(text: str) -> float:  # skip_tests
-        """
-        Run sentiment analysis using the library flair. Returns default sentiment
-        Works based on a character-level LSTM neural network
-        :param text: text to be analyzed
-        :return: sentiment for given text
-        """
-
-        raise DeprecationWarning("Depreciated due to dependency issues. Do not use")
-        #
-        # if not text:
-        #     return math.nan
-        #
-        # s = flair.data.Sentence(text)
-        # Sentiments.get_instance().flair_sentiment.predict(s)
-        # total_sentiment = s.labels
-        # if total_sentiment[0].value == 'NEGATIVE':
-        #     return total_sentiment[0].score * -1
-        # else:
-        #     return total_sentiment[0].score
-
     _sentiment_function_mapping = {
         'nltk': sentiment_analysis_nltk.__func__,
         'textblob': sentiment_analysis_textblob.__func__

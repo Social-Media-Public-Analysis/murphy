@@ -1,5 +1,5 @@
 from murpheus.batch_processing import Batches
-from murpheus.data_loading import DataLoading
+from murpheus.data_loader import DataLoader
 
 
 def counter(tweets):
@@ -11,8 +11,8 @@ def example_process_in_batches():
     Example function to show how process_in_batches works
     :return: returns the count of tweets
     """
-    files_lst = DataLoading.get_files_list('../../../data/*.json.bz2')
-    results = Batches.process_in_batches(files_lst, read_func=DataLoading.read_compressed_bz2_json_file,
+    files_lst = DataLoader._get_files_list('../../../data/*.json.bz2')
+    results = Batches.process_in_batches(files_lst, read_func=DataLoader._read_compressed_bz2_json_file,
                                          func_to_apply=counter, verbose=False)
     return results
 
@@ -23,8 +23,8 @@ def example_process_in_batches_generator():
     :return: returns the count of tweets
     """
 
-    files_lst = DataLoading.get_files_list('../../../data/*.json.bz2')
-    generator = Batches.process_in_batches_generator(files_lst, read_func=DataLoading.read_compressed_bz2_json_file,
+    files_lst = DataLoader._get_files_list('../../../data/*.json.bz2')
+    generator = Batches.process_in_batches_generator(files_lst, read_func=DataLoader._read_compressed_bz2_json_file,
                                                      func_to_apply=counter)
     results = list(generator)
     return results

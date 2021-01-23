@@ -6,3 +6,4 @@ nltk
 pytest
 pyfiglet
 textblob
+emoji
