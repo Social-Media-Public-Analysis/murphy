@@ -1,7 +1,7 @@
 from setuptools import setup
 setup(
   name = 'smpa-murphy',
-  packages = ['smpa-murphy'],
+  packages = ['murphy'],
   version = '0.6',
   license='MIT',
   description = 'Murpheus is a powerful processor that is used to analyze a ton of twitter data from the internet archive.',
