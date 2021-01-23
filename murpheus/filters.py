@@ -71,7 +71,8 @@ class Filter:
     @staticmethod
     def mark_truncated_tweets(tweet_dataframe: dask_Dataframe):
         tweet_dataframe['is_truncated_tweet'] = tweet_dataframe['text'].apply(
-            lambda x: x[-1] != Filter._truncated_string, meta=bool)
+            lambda x: x[-1] != Filter._truncated_string, meta=bool
+        )
         return tweet_dataframe
 
     def run_filters(self, twitter_dataframe: dask_Dataframe):
