@@ -36,7 +36,7 @@ class Filter:
         for emoji_string in UNICODE_EMOJI:
             count += string.count(emoji_string)
             if count > 1:
-                return False
+                return True
         return bool(count)
 
     @staticmethod

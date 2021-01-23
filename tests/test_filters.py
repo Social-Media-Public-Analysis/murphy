@@ -19,8 +19,6 @@ class FilterTestCase(unittest.TestCase):
         self._test_retweet_string = 'RT @v2thegreat:Hello people!'
 
     def test_is_emoji(self):
-        print(self._test_emoji_string)
-        print(Filter._is_emoji(self._test_emoji_string))
         self.assertTrue(Filter._is_emoji(self._test_emoji_string))
         self.assertFalse(Filter._is_emoji("This string doesn't contain an emoji"))
 
