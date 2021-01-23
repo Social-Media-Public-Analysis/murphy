@@ -8,7 +8,7 @@ from typing import List, Union
 import dask.bag as db
 import dask.dataframe as dd
 
-from murpheus.filters import Filter
+from murphy.filters import Filter
 
 
 class DataLoader:
@@ -17,12 +17,23 @@ class DataLoader:
     def __init__(self,
                  file_find_expression: Union[str, Path, List[Path]],
                  remove_emoji: bool = True,
-                 remove_retweets: bool = True,
+                 remove_retweets_symbols: bool = True,
                  remove_truncated_tweets: bool = True,
                  add_usernames: bool = True
                  ):
+        """
+        This is where you can specify how you want to configure the twitter dataset before you start processing it.
 
-        self.filter = Filter(remove_emoji, remove_retweets, remove_truncated_tweets)
+        :param file_find_expression: unix-like path that is used for listing out all of the files that we need
+        :param remove_emoji: flag for removing emojis from all of the twitter text
+        :param remove_retweets_symbols: flag for removing retweet strings from all of the twitter text (`RT @<username
+                                        it's retweeting to>:`)
+        :param remove_truncated_tweets: flag for removing all tweets that are truncated, as not all information can be
+                                        found in them
+        :param add_usernames: flag for adding in the user names from who tweeted as a separate column instead of parsing
+                              it from the `user` column
+        """
+        self.filter = Filter(remove_emoji, remove_retweets_symbols, remove_truncated_tweets)
         self.file_find_expression = file_find_expression
         self.file_list = self._get_files_list(self.file_find_expression)
         self.twitter_dataframe = self._get_twitter_data_as_dataframes()
@@ -113,6 +124,12 @@ class DataLoader:
     @staticmethod
     def _get_twitter_data_from_file_list(file_lst: List,
                                          remove_deleted_tweets: bool = True) -> db.Bag:
+        """
+        Function to get
+        :param file_lst: list of files where we have all of our twitter data
+        :param remove_deleted_tweets: ensure that tweets that were deleted are removed from our dataset
+        :return: dask bag that has all of the tweets ready for processing
+        """
         bags = db.read_text(file_lst).map(DataLoader._read_compressed_bz2_json_text)
         if remove_deleted_tweets:
             bags = DataLoader._remove_deleted_tweets(bags)
@@ -129,6 +146,10 @@ class DataLoader:
         return data.filter(lambda x: 'lang' in x)
 
     def _add_usernames(self):
+        """
+        Function to add usernames directly into the twitter_dataframe instead of using the user json file
+        :return:
+        """
         self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(lambda x: x['screen_name'],
                                                                                     meta=str)
 

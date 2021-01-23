@@ -1,7 +1,7 @@
 import unittest
 from dask.bag import Bag
 from dask.dataframe import DataFrame
-from murpheus.data_loader import DataLoader
+from murphy.data_loader import DataLoader
 from tests import CommonTestSetup
 from pathlib import Path
 
@@ -10,7 +10,7 @@ class DataLoadingTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
         self.data_loader = DataLoader(
-            file_find_expression=self.path_prefix / 'data/test_data/test_sample_files.json.bz2', remove_retweets=False,
+            file_find_expression=self.path_prefix / 'data/test_data/test_sample_files.json.bz2', remove_retweets_symbols=False,
             remove_emoji=False, remove_truncated_tweets=False,
             add_usernames=False
         )

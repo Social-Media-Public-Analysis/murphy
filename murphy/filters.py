@@ -35,9 +35,10 @@ class Filter:
         count = 0
         for emoji_string in UNICODE_EMOJI:
             count += string.count(emoji_string)
-            if count > 1:
-                return False
-        return bool(count)
+            if count != 0:
+                return True
+        else:
+            return False
 
     @staticmethod
     def _remove_emojis(string: str):

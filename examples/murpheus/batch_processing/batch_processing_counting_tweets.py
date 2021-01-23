@@ -1,5 +1,5 @@
-from murpheus.batch_processing import Batches
-from murpheus.data_loader import DataLoader
+from murphy.batch_processing import Batches
+from murphy.data_loader import DataLoader
 
 
 def counter(tweets):
