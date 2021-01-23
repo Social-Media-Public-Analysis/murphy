@@ -1,7 +1,7 @@
 import unittest
-from murpheus.data_loader import DataLoader
+from murphy.data_loader import DataLoader
 from tests import CommonTestSetup
-from murpheus.filters import Filter
+from murphy.filters import Filter
 import pandas as pd
 import dask.dataframe as dd
 from itertools import product

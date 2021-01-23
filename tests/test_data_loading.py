@@ -1,7 +1,7 @@
 import unittest
 from dask.bag import Bag
 from dask.dataframe import DataFrame
-from murpheus.data_loader import DataLoader
+from murphy.data_loader import DataLoader
 from tests import CommonTestSetup
 from pathlib import Path
 

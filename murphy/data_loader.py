@@ -8,7 +8,7 @@ from typing import List, Union
 import dask.bag as db
 import dask.dataframe as dd
 
-from murpheus.filters import Filter
+from murphy.filters import Filter
 
 
 class DataLoader:
