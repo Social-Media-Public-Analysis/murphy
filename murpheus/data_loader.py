@@ -129,6 +129,12 @@ class DataLoader:
         self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(lambda x: x['screen_name'],
                                                                                     meta=str)
 
+    # def group_user_tweets(self):
+    #     # TODO: add functionality in batch processing to make this process easier and more memory efficient
+    #     if 'user_names' not in self.twitter_dataframe.columns:
+    #         self._add_usernames()
+    #     return self.twitter_dataframe.groupby('user_names').apply(lambda x: list(x['text']), meta=list).to_frame()
+
 
 if __name__ == '__main__':
     pass
