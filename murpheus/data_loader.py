@@ -24,6 +24,7 @@ class DataLoader:
 
         self.filter = Filter(remove_emoji, remove_retweets, remove_truncated_tweets)
         self.file_find_expression = file_find_expression
+        self.file_list = self._get_files_list(self.file_find_expression)
         self.twitter_dataframe = self._get_twitter_data_as_dataframes()
         self.twitter_bags = self._get_twitter_data_as_bags()
         self.twitter_dataframe = self.filter.run_filters(self.twitter_dataframe)
@@ -49,6 +50,8 @@ class DataLoader:
 
         if path.isdir(pathname):
             pathname = path.join(pathname, f'{suffix}')
+
+        pathname = str(pathname)
 
         files_list = glob(pathname, recursive=recursive)
 
