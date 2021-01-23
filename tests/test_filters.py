@@ -52,6 +52,13 @@ class FilterTestCase(unittest.TestCase):
         temp_df = dd.from_pandas(df, npartitions=1)
         self.assertTrue(Filter.remove_truncated_tweets(temp_df).compute().equals(output_df))
 
+    def test_mark_truncated_tweets(self):
+        input_data = [['…', 'other'], ['nick', 'other'], ['juli', 'other']]
+        df = pd.DataFrame(input_data, columns=['text', 'other'])
+        df = dd.from_pandas(df, npartitions=1)
+        df = Filter.mark_truncated_tweets(df)
+        self.assertIn('is_truncated_tweet', df.columns)
+
     def test_run_filters(self):
         # runs the respective tests for when each of the flags are running
         bool_flag = [True, False]

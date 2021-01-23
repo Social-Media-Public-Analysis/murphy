@@ -18,7 +18,8 @@ class DataLoader:
                  file_find_expression: Union[str, Path, List[Path]],
                  remove_emoji: bool = True,
                  remove_retweets: bool = True,
-                 remove_truncated_tweets: bool = True
+                 remove_truncated_tweets: bool = True,
+                 add_usernames: bool = True
                  ):
 
         self.filter = Filter(remove_emoji, remove_retweets, remove_truncated_tweets)
@@ -26,6 +27,9 @@ class DataLoader:
         self.twitter_dataframe = self._get_twitter_data_as_dataframes()
         self.twitter_bags = self._get_twitter_data_as_bags()
         self.twitter_dataframe = self.filter.run_filters(self.twitter_dataframe)
+
+        if add_usernames:
+            self._add_usernames()
 
     @staticmethod
     def _get_files_list(pathname: Union[str, Path], recursive: bool = False,
@@ -120,6 +124,10 @@ class DataLoader:
         :return: returns the items that haven't been deleted
         """
         return data.filter(lambda x: 'lang' in x)
+
+    def _add_usernames(self):
+        self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(lambda x: x['screen_name'],
+                                                                                    meta=str)
 
 
 if __name__ == '__main__':

@@ -11,7 +11,9 @@ class DataLoadingTestCase(unittest.TestCase):
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
         self.data_loader = DataLoader(
             file_find_expression=self.path_prefix / 'data/test_data/test_sample_files.json.bz2', remove_retweets=False,
-            remove_emoji=False, remove_truncated_tweets=False)
+            remove_emoji=False, remove_truncated_tweets=False,
+            add_usernames=False
+        )
 
     def test_get_files_list_in_data(self):
         """
@@ -82,6 +84,11 @@ class DataLoadingTestCase(unittest.TestCase):
         bags = bags.take(100)
         computed = removed_tweets.take(100)
         self.assertNotEqual(bags, computed)
+
+    def test_add_usernames(self):
+        self.assertNotIn('user_names', self.data_loader.twitter_dataframe.columns)
+        self.data_loader._add_usernames()
+        self.assertIn('user_names', self.data_loader.twitter_dataframe.columns)
 
 
 if __name__ == "__main__":
