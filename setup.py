@@ -2,7 +2,7 @@ from setuptools import setup
 setup(
   name = 'smpa-murphy',
   packages = ['murphy'],
-  version = '0.6',
+  version = '1.0.0-alpha.1',
   license='MIT',
   description = 'Murpheus is a powerful processor that is used to analyze a ton of twitter data from the internet archive.',
   long_description="""# Murpheus\n\n* Murpheus is a powerful processor that is used to analyze a ton of twitter data from the internet archive""",
@@ -10,7 +10,7 @@ setup(
   author = 'Ali Abbas',
   author_email = 'v2thegreat@gmail.com',
   url = 'https://github.com/Social-Media-Public-Analysis/murpheus',
-  download_url = 'https://github.com/Social-Media-Public-Analysis/murpheus/archive/v_06.tar.gz',
+  download_url = 'https://github.com/Social-Media-Public-Analysis/murpheus/archive/v1.0.0-alpha.1.tar.gz',
   keywords = ['DASK', 'BIG DATA', 'MACHINE LEARNING'],
   install_requires=[
             'tqdm',
@@ -20,6 +20,7 @@ setup(
             'nltk',
             'pytest',
             'pyfiglet',
+            'emoji'
       ],
   classifiers=[
     'Development Status :: 3 - Alpha',
