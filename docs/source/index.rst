@@ -9,7 +9,7 @@ Welcome to Murphy's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-       :ref: modules
+       :ref:`modules`
 
 
 
