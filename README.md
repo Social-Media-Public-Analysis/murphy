@@ -1,4 +1,4 @@
-# Murpheus
+# Murphy
 
 ![Build](https://github.com/Social-Media-Public-Analysis/murpheus/workflows/Build/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3207d1f12fc95ac9162e/maintainability)](https://codeclimate.com/github/Social-Media-Public-Analysis/murpheus/maintainability)
