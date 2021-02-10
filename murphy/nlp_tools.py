@@ -10,6 +10,7 @@ class NLPTools:
                  filter_stopwords: bool = True,
                  lemmatize: bool = True,
                  language='english'):
+
         self.tokenize_flag = tokenize
         self.filter_stopwords_flag = filter_stopwords
         self.lemmatize_flag = lemmatize
