@@ -12,13 +12,12 @@ except LookupError:
 from nltk.corpus import stopwords
 
 
-
 class NLPTools:
     def __init__(self,
                  tokenize: bool = True,
                  filter_stopwords: bool = True,
                  lemmatize: bool = True,
-                 language = 'english'):
+                 language: str = 'english'):
 
         self.tokenize_flag = tokenize
         self.filter_stopwords_flag = filter_stopwords
@@ -45,7 +44,7 @@ class NLPTools:
 
         return ' '.join(lemmatized)
 
-    def run_functionality(self, twitter_dataframe: dask_dataframe):
+    def run_tools(self, twitter_dataframe: dask_dataframe):
         if self.tokenize_flag:
             twitter_dataframe['text'] = twitter_dataframe.apply(
                 lambda x: self._tokenize(x['text']),
