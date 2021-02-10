@@ -1,7 +1,16 @@
 from dask.dataframe import DataFrame as dask_dataframe
+import en_core_web_sm
 import nltk
+
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+    nltk.download('stopwords')
+    import nltk
+
 from nltk.corpus import stopwords
-import spacy
+
 
 
 class NLPTools:
@@ -9,7 +18,7 @@ class NLPTools:
                  tokenize: bool = True,
                  filter_stopwords: bool = True,
                  lemmatize: bool = True,
-                 language='english'):
+                 language = 'english'):
 
         self.tokenize_flag = tokenize
         self.filter_stopwords_flag = filter_stopwords
@@ -18,10 +27,10 @@ class NLPTools:
         self.language = language
         self.stopwords = stopwords.words(self.language)
 
-    nlp = spacy.load("en_core_web_sm")
+    nlp = en_core_web_sm.load()
 
     def _tokenize(self, string: str) -> str:
-        tokens = nltk.word_tokenize(text=string, language=self.language)
+        tokens = nltk.word_tokenize(text = string, language = self.language)
         tokens_lst = list(filter(lambda word: word.isalnum(), tokens))
         return ' '.join(tokens_lst)
 
@@ -40,20 +49,20 @@ class NLPTools:
         if self.tokenize_flag:
             twitter_dataframe['text'] = twitter_dataframe.apply(
                 lambda x: self._tokenize(x['text']),
-                axis=1, meta=str
+                axis = 1, meta = str
             )
 
         if self.filter_stopwords_flag:
             twitter_dataframe['text'] = twitter_dataframe.apply(
                 lambda x: self.remove_stopwords(x['text']),
-                axis=1, meta=str
+                axis = 1, meta = str
             )
 
         if self.lemmatize_flag:
             twitter_dataframe['text'] = twitter_dataframe.apply(
                 lambda x: self.lemmatize(x['text']),
-                axis=1,
-                meta=str
+                axis = 1,
+                meta = str
             )
 
         return twitter_dataframe
