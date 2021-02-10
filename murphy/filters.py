@@ -9,9 +9,7 @@ TODO:
     - Add tests
 """
 
-from typing import Union, List, Dict, Any
-import pandas as pd
-from dask.dataframe import DataFrame as dask_Dataframe
+from dask.dataframe import DataFrame as dask_dataframe
 from emoji import UNICODE_EMOJI
 import emoji
 import re
@@ -53,18 +51,18 @@ class Filter:
         return re.sub(Filter._retweet_regex, '', string)
 
     @staticmethod
-    def filter_emoji(twitter_dataframe: dask_Dataframe):
+    def filter_emoji(twitter_dataframe: dask_dataframe):
         twitter_dataframe['text'] = twitter_dataframe['text'].apply(Filter._remove_emojis, meta=str)
         return twitter_dataframe
 
     @staticmethod
-    def filter_retweet_text(twitter_dataframe: dask_Dataframe):
+    def filter_retweet_text(twitter_dataframe: dask_dataframe):
         twitter_dataframe['text'] = twitter_dataframe['text'].apply(Filter._remove_retweet,
                                                                     meta=str)
         return twitter_dataframe
 
     @staticmethod
-    def remove_truncated_tweets(tweet_dataframe: dask_Dataframe):
+    def remove_truncated_tweets(tweet_dataframe: dask_dataframe):
         tweet_dataframe['is_not_truncated_tweet'] = tweet_dataframe['text'].apply(
             lambda x: x[-1] != Filter._truncated_string, meta=bool)
         tweet_dataframe = tweet_dataframe[tweet_dataframe['is_not_truncated_tweet']]
@@ -74,13 +72,13 @@ class Filter:
         return tweet_dataframe
 
     @staticmethod
-    def mark_truncated_tweets(tweet_dataframe: dask_Dataframe):
+    def mark_truncated_tweets(tweet_dataframe: dask_dataframe):
         tweet_dataframe['is_truncated_tweet'] = tweet_dataframe['text'].apply(
             lambda x: x[-1] != Filter._truncated_string, meta=bool
         )
         return tweet_dataframe
 
-    def run_filters(self, twitter_dataframe: dask_Dataframe):
+    def run_filters(self, twitter_dataframe: dask_dataframe):
         if self.remove_retweets_flag:
             twitter_dataframe = self.filter_retweet_text(twitter_dataframe)
         if self.remove_emoji_flag:
