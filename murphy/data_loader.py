@@ -22,16 +22,18 @@ class DataLoader:
                  add_usernames: bool = True
                  ):
         """
-        This is where you can specify how you want to configure the twitter dataset before you start processing it.
+        This is where you can specify how you want to configure the twitter dataset before you
+        start processing it.
 
-        :param file_find_expression: unix-like path that is used for listing out all of the files that we need
+        :param file_find_expression: unix-like path that is used for listing out all of the files
+        that we need
         :param remove_emoji: flag for removing emojis from all of the twitter text
-        :param remove_retweets_symbols: flag for removing retweet strings from all of the twitter text (`RT @<username
-                                        it's retweeting to>:`)
-        :param remove_truncated_tweets: flag for removing all tweets that are truncated, as not all information can be
-                                        found in them
-        :param add_usernames: flag for adding in the user names from who tweeted as a separate column instead of parsing
-                              it from the `user` column
+        :param remove_retweets_symbols: flag for removing retweet strings from all of the twitter
+        text (`RT @<username it's retweeting to>:`)
+        :param remove_truncated_tweets: flag for removing all tweets that are truncated, as not all
+        information can be found in them
+        :param add_usernames: flag for adding in the user names from who tweeted as a separate
+        column instead of parsing it from the `user` column
         """
         self.filter = Filter(remove_emoji, remove_retweets_symbols, remove_truncated_tweets)
         self.file_find_expression = file_find_expression
@@ -48,7 +50,8 @@ class DataLoader:
                         suffix: str = '*.json*') -> List[str]:
         """
         function to get files from the given pathname.
-        Searches in the directory when pathname leads to a directory with the option for adding a custom suffix
+        Searches in the directory when pathname leads to a directory with the option for adding a
+        custom suffix
 
         If pathname given is a directory, searches in the directory
 
@@ -88,7 +91,8 @@ class DataLoader:
     def _read_compressed_bz2_json_text(file_contents: Union[str, Path]):
         """
         create json data from compressed bz2 text.
-        Note: dask.bags.read_text might already uncompress this data, hence compression has been skipped here
+        Note: dask.bags.read_text might already uncompress this data, hence compression has been
+        skipped here
         :param file_contents: text that is in a json/dict string
         :return: List of json like dictionaries that contain information on tweets
         """
@@ -102,7 +106,8 @@ class DataLoader:
                 Don't turn this off if you want something working right out of the box.
         :return: dask dataframe that contains information on the tweets
         """
-        bags = db.read_text(self.file_find_expression).map(DataLoader._read_compressed_bz2_json_text)
+        bags = db.read_text(self.file_find_expression).map(
+            DataLoader._read_compressed_bz2_json_text)
 
         if remove_deleted_tweets:
             bags = DataLoader._remove_deleted_tweets(bags)
@@ -113,10 +118,12 @@ class DataLoader:
         """
         function to get twitter data as dask bags based on the given directory
         :param remove_deleted_tweets: Filter out removed tweets?
-                                Don't turn this off if you want something working right out of the box.
+                                Don't turn this off if you want something working right out of
+                                the box.
         :return: dask bag that contains information on the tweets
         """
-        bags = db.read_text(self.file_find_expression).map(DataLoader._read_compressed_bz2_json_text)
+        bags = db.read_text(self.file_find_expression).map(
+            DataLoader._read_compressed_bz2_json_text)
         if remove_deleted_tweets:
             bags = DataLoader._remove_deleted_tweets(bags)
         return bags
@@ -127,7 +134,8 @@ class DataLoader:
         """
         Function to get
         :param file_lst: list of files where we have all of our twitter data
-        :param remove_deleted_tweets: ensure that tweets that were deleted are removed from our dataset
+        :param remove_deleted_tweets: ensure that tweets that were deleted are removed from our
+        dataset
         :return: dask bag that has all of the tweets ready for processing
         """
         bags = db.read_text(file_lst).map(DataLoader._read_compressed_bz2_json_text)
@@ -147,17 +155,21 @@ class DataLoader:
 
     def _add_usernames(self):
         """
-        Function to add usernames directly into the twitter_dataframe instead of using the user json file
+        Function to add usernames directly into the twitter_dataframe instead of using the user
+        json file
         :return:
         """
-        self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(lambda x: x['screen_name'],
-                                                                                    meta=str)
+        self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(
+            lambda x: x['screen_name'],
+            meta=str)
 
     # def group_user_tweets(self):
-    #     # TODO: add functionality in batch processing to make this process easier and more memory efficient
+    #     # TODO: add functionality in batch processing to make this process easier and more memory
+    #      efficient
     #     if 'user_names' not in self.twitter_dataframe.columns:
     #         self._add_usernames()
-    #     return self.twitter_dataframe.groupby('user_names').apply(lambda x: list(x['text']), meta=list).to_frame()
+    #     return self.twitter_dataframe.groupby('user_names').apply(lambda x: list(x['text']),
+    #     meta=list).to_frame()
 
 
 if __name__ == '__main__':

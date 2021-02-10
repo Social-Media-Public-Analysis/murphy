@@ -22,7 +22,10 @@ class Filter:
     _retweet_regex = r'RT @(.+?):'
     _truncated_string = '…'
 
-    def __init__(self, remove_emoji: bool = True, remove_retweets: bool = False, remove_truncated_tweets: bool = False):
+    def __init__(self,
+                 remove_emoji: bool = True,
+                 remove_retweets: bool = False,
+                 remove_truncated_tweets: bool = False):
         """
         Create Filter object that can filter out unneeded rows
         """
@@ -56,7 +59,8 @@ class Filter:
 
     @staticmethod
     def filter_retweet_text(twitter_dataframe: dask_Dataframe):
-        twitter_dataframe['text'] = twitter_dataframe['text'].apply(Filter._remove_retweet, meta=str)
+        twitter_dataframe['text'] = twitter_dataframe['text'].apply(Filter._remove_retweet,
+                                                                    meta=str)
         return twitter_dataframe
 
     @staticmethod
