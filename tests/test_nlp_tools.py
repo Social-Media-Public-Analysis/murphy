@@ -107,7 +107,9 @@ class NLPTestCase(unittest.TestCase):
         )
 
     def test_run_nlp_tools(self):
+
         bool_flag = [True, False]
+
         for tokenize_flag, filter_stopwords_flag, lemmatize_flag in product(bool_flag, bool_flag, bool_flag):
             nlp_tool_obj = NLPTools(
                 tokenize=tokenize_flag,
@@ -116,4 +118,36 @@ class NLPTestCase(unittest.TestCase):
             )
 
             if tokenize_flag:
-                pass
+                input_data = [[self._test_string, 'other'], ['abcd', 'other2']]
+                output_data = [[self._tokenized_test_string, 'other'], ['abcd', 'other2']]
+
+                df = pd.DataFrame(input_data, columns=['text', 'other'])
+                output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+                temp_df = dd.from_pandas(df, npartitions=1)
+                self.assertTrue(nlp_tool_obj.tokenize_tweets(temp_df).compute().equals(output_df))
+
+            if filter_stopwords_flag:
+                input_data = [[self._test_string, 'other'], ['abcd', 'other2']]
+                output_data = [[self._no_stop_word_test_string, 'other'], ['abcd', 'other2']]
+
+                df = pd.DataFrame(input_data, columns=['text', 'other'])
+                output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+                temp_df = dd.from_pandas(df, npartitions=1)
+                self.assertTrue(
+                    nlp_tool_obj.filter_stopwords(
+                        temp_df
+                    ).compute().equals(output_df)
+                )
+
+            if lemmatize_flag:
+                input_data = [[self._test_string, 'other'], ['abcd', 'other2']]
+                output_data = [[self._lemmatized_string, 'other'], ['abcd', 'other2']]
+
+                df = pd.DataFrame(input_data, columns=['text', 'other'])
+                output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+                temp_df = dd.from_pandas(df, npartitions=1)
+                self.assertTrue(
+                    self.nlp_tool.lemmatize_tweets(
+                        temp_df
+                    ).compute().equals(output_df)
+                )
