@@ -21,20 +21,20 @@ class DataLoadingTestCase(unittest.TestCase):
             function assumes that order doesn't matter
             If order matters, glob might have to be reconfigured
         """
-        sample_files_list = set([(Path(x)) for x in self.data_loader._get_files_list(self.data_path)])
+        sample_files_list = set([(Path(x)) for x in self.data_loader.get_files_list(self.data_path)])
         self.assertTrue(sample_files_list == {self.path_prefix / 'data/test_data/test_sample_files.json.bz2',
                                               self.path_prefix / 'data/test_data/test_sample_files_2.json.bz2'})
 
     def test_get_files_list_when_no_files_present(self):
         print(self.data_path)
         try:
-            self.data_loader._get_files_list('../../data/no-files.txt')
+            self.data_loader.get_files_list('../../data/no-files.txt')
             self.assertFalse(False)
         except ValueError:
             self.assertTrue(True)
 
     def test_get_files_list_when_directory(self):
-        files_list = self.data_loader._get_files_list(self.data_path, suffix='*.json.bz2')
+        files_list = self.data_loader.get_files_list(self.data_path, suffix='*.json.bz2')
 
         self.assertTrue(set(files_list) == {str(self.data_path / 'test_sample_files.json.bz2'),
                                             str(self.data_path / 'test_sample_files_2.json.bz2')})
