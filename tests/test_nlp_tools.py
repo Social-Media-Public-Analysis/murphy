@@ -74,6 +74,19 @@ class NLPTestCase(unittest.TestCase):
             self._no_stop_word_test_string
         )
 
+    def test_stopwords_filter_on_dataframe(self):
+        input_data = [[self._test_string, 'other'], ['abcd', 'other2']]
+        output_data = [[self._no_stop_word_test_string, 'other'], ['abcd', 'other2']]
+
+        df = pd.DataFrame(input_data, columns=['text', 'other'])
+        output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+        temp_df = dd.from_pandas(df, npartitions=1)
+        self.assertTrue(
+            self.nlp_tool.filter_stopwords(
+                temp_df
+            ).compute().equals(output_df)
+        )
+
     def test_lemmatize_func(self):
         self.assertEqual(
             self.nlp_tool._lemmatize(self._test_string),
