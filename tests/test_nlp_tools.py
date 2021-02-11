@@ -3,13 +3,15 @@ from murphy.data_loader import DataLoader
 from tests import CommonTestSetup
 from murphy.nlp_tools import NLPTools
 from itertools import product
+import pandas as pd
+import dask.dataframe as dd
 
 
 class NLPTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
         self.data_loader = DataLoader(
-            file_find_expression = self.path_prefix / 'data/test_data/test_sample_files.json.bz2'
+            file_find_expression=self.path_prefix / 'data/test_data/test_sample_files.json.bz2'
         )
 
         self._test_string = "From: (where's my thing) Subject: WHAT car is this!? Nntp-Posting-Host: rac3.wam.umd.edu " \
@@ -57,6 +59,15 @@ class NLPTestCase(unittest.TestCase):
             self._tokenized_test_string
         )
 
+    def test_tokenizer_on_dataframe(self):
+        input_data = [[self._test_string, 'other'], ['abcd', 'other2']]
+        output_data = [[self._tokenized_test_string, 'other'], ['abcd', 'other2']]
+
+        df = pd.DataFrame(input_data, columns=['text', 'other'])
+        output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+        temp_df = dd.from_pandas(df, npartitions=1)
+        self.assertTrue(self.nlp_tool.tokenize_tweets(temp_df).compute().equals(output_df))
+
     def test_remove_stopwords_func(self):
         self.assertEqual(
             self.nlp_tool._remove_stopwords(self._test_string),
@@ -72,11 +83,11 @@ class NLPTestCase(unittest.TestCase):
     def test_run_nlp_tools(self):
         bool_flag = [True, False]
         for tokenize_flag, filter_stopwords_flag, lemmatize_flag in product(bool_flag, bool_flag, bool_flag):
-           nlp_tool_obj = NLPTools(
-               tokenize = tokenize_flag,
-               filter_stopwords = filter_stopwords_flag,
-               lemmatize = lemmatize_flag
-           )
+            nlp_tool_obj = NLPTools(
+                tokenize=tokenize_flag,
+                filter_stopwords=filter_stopwords_flag,
+                lemmatize=lemmatize_flag
+            )
 
-           if tokenize_flag:
+            if tokenize_flag:
                 pass
