@@ -32,7 +32,7 @@ class NLPTools:
     nlp = en_core_web_sm.load()
 
     def _tokenize(self, string: str) -> str:
-        tokens = nltk.word_tokenize(text = string, language = self.language)
+        tokens = nltk.word_tokenize(text=string, language=self.language)
         tokens_lst = list(filter(lambda word: word.isalnum(), tokens))
         return ' '.join(tokens_lst)
 
@@ -47,17 +47,25 @@ class NLPTools:
 
         return ' '.join(lemmatized)
 
-    def tokenize_tweets(self, tweet_dataframe: Union[dask_dataframe, pd.DataFrame]) -> Union[dask_dataframe, pd.DataFrame]:
+    def tokenize_tweets(self, tweet_dataframe: Union[dask_dataframe, pd.DataFrame]) -> Union[
+        dask_dataframe, pd.DataFrame]:
         tweet_dataframe['text'] = tweet_dataframe['text'].apply(
             lambda text: self._tokenize(text),
-            meta = str
+            meta=str
         )
         return tweet_dataframe
 
     def filter_stopwords(self, tweet_dataframe: dask_dataframe) -> Union[dask_dataframe, pd.DataFrame]:
         tweet_dataframe['text'] = tweet_dataframe.apply(
             lambda x: self._remove_stopwords(x['text']),
-            axis = 1, meta = str
+            axis=1, meta=str
+        )
+        return tweet_dataframe
+
+    def lemmatize_tweets(self, tweet_dataframe: dask_dataframe) -> Union[dask_dataframe, pd.DataFrame]:
+        tweet_dataframe['text'] = tweet_dataframe.apply(
+            lambda x: self._lemmatize(x['text']),
+            axis=1, meta=str
         )
         return tweet_dataframe
 
@@ -68,15 +76,15 @@ class NLPTools:
         if self.filter_stopwords_flag:
             tweet_dataframe['text'] = tweet_dataframe.apply(
                 lambda x: self._remove_stopwords(x['text']),
-                axis = 1, meta = str
+                axis=1, meta=str
             )
             # tweet_dataframe = self.filter_stopwords(tweet_dataframe)
 
         if self.lemmatize_flag:
             tweet_dataframe['text'] = tweet_dataframe.apply(
                 lambda x: self._lemmatize(x['text']),
-                axis = 1,
-                meta = str
+                axis=1,
+                meta=str
             )
 
         return tweet_dataframe
