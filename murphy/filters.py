@@ -9,8 +9,7 @@ TODO:
     - Add tests
 """
 
-from typing import Union, List, Dict, Any
-import pandas as pd
+
 from dask.dataframe import DataFrame as dask_Dataframe
 from emoji import UNICODE_EMOJI
 import emoji
