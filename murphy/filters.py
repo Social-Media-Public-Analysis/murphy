@@ -9,11 +9,12 @@ TODO:
     - Add tests
 """
 
-
-from dask.dataframe import DataFrame as dask_Dataframe
+from dask.dataframe import DataFrame as dask_dataframe
 from emoji import UNICODE_EMOJI
 import emoji
 import re
+import pandas as pd
+from typing import Union
 
 
 class Filter:
@@ -43,29 +44,38 @@ class Filter:
             return False
 
     @staticmethod
-    def _remove_emojis(string: str):
+    def _remove_emojis(string: str) -> str:
         string = emoji.demojize(string)
         return re.sub(Filter._demojifier_regex, '', string)
 
     @staticmethod
-    def _remove_retweet(string: str):
+    def _remove_retweet(string: str) -> str:
         return re.sub(Filter._retweet_regex, '', string)
 
     @staticmethod
-    def filter_emoji(twitter_dataframe: dask_Dataframe):
-        twitter_dataframe['text'] = twitter_dataframe['text'].apply(Filter._remove_emojis, meta=str)
+    def filter_emoji(twitter_dataframe: Union[dask_dataframe, pd.DataFrame]) -> Union[dask_dataframe, pd.DataFrame]:
+        twitter_dataframe['text'] = twitter_dataframe['text'].apply(
+            Filter._remove_emojis,
+            meta = str
+        )
         return twitter_dataframe
 
     @staticmethod
-    def filter_retweet_text(twitter_dataframe: dask_Dataframe):
-        twitter_dataframe['text'] = twitter_dataframe['text'].apply(Filter._remove_retweet,
-                                                                    meta=str)
+    def filter_retweet_text(twitter_dataframe: Union[dask_dataframe, pd.DataFrame]) -> Union[
+        dask_dataframe, pd.DataFrame]:
+        twitter_dataframe['text'] = twitter_dataframe['text'].apply(
+            Filter._remove_retweet,
+            meta = str
+        )
         return twitter_dataframe
 
     @staticmethod
-    def remove_truncated_tweets(tweet_dataframe: dask_Dataframe):
+    def remove_truncated_tweets(tweet_dataframe: Union[dask_dataframe, pd.DataFrame]) -> Union[
+        dask_dataframe, pd.DataFrame]:
         tweet_dataframe['is_not_truncated_tweet'] = tweet_dataframe['text'].apply(
-            lambda x: x[-1] != Filter._truncated_string, meta=bool)
+            lambda x: x[-1] != Filter._truncated_string,
+            meta = bool
+        )
         tweet_dataframe = tweet_dataframe[tweet_dataframe['is_not_truncated_tweet']]
         del tweet_dataframe['is_not_truncated_tweet']
         tweet_dataframe = tweet_dataframe.reset_index()
@@ -73,13 +83,16 @@ class Filter:
         return tweet_dataframe
 
     @staticmethod
-    def mark_truncated_tweets(tweet_dataframe: dask_Dataframe):
+    def mark_truncated_tweets(tweet_dataframe: Union[dask_dataframe, pd.DataFrame]) -> Union[
+        dask_dataframe, pd.DataFrame]:
         tweet_dataframe['is_truncated_tweet'] = tweet_dataframe['text'].apply(
-            lambda x: x[-1] != Filter._truncated_string, meta=bool
+            lambda x: x[-1] != Filter._truncated_string,
+            meta = bool
         )
         return tweet_dataframe
 
-    def run_filters(self, twitter_dataframe: dask_Dataframe):
+    def run_filters(self, twitter_dataframe: Union[dask_dataframe, pd.DataFrame]) -> Union[
+        dask_dataframe, pd.DataFrame]:
         if self.remove_retweets_flag:
             twitter_dataframe = self.filter_retweet_text(twitter_dataframe)
         if self.remove_emoji_flag:

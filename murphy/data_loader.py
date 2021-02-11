@@ -15,16 +15,22 @@ from typing import List, Union
 import dask.bag as db
 import dask.dataframe as dd
 from murphy.filters import Filter
+from murphy.nlp_tools import NLPTools
 
 
 class DataLoader:
+    __instance__ = None
 
     def __init__(self,
                  file_find_expression: Union[str, Path, List[Path]],
                  remove_emoji: bool = True,
                  remove_retweets_symbols: bool = True,
                  remove_truncated_tweets: bool = True,
-                 add_usernames: bool = True
+                 add_usernames: bool = True,
+                 tokenize: bool = True,
+                 filter_stopwords: bool = True,
+                 lemmatize: bool = True,
+                 language: str = 'english'
                  ):
         """
 
@@ -44,12 +50,25 @@ class DataLoader:
                               it from the `user` column
         """
 
-        self.filter = Filter(remove_emoji, remove_retweets_symbols, remove_truncated_tweets)
+        self.filter = Filter(
+            remove_emoji = remove_emoji,
+            remove_retweets = remove_retweets_symbols,
+            remove_truncated_tweets = remove_truncated_tweets
+        )
+
+        self.nlp_tools = NLPTools(
+            tokenize = tokenize,
+            filter_stopwords = filter_stopwords,
+            lemmatize = lemmatize,
+            language = language
+        )
+
         self.file_find_expression = file_find_expression
         self.file_list = self.get_files_list(self.file_find_expression)
         self.twitter_dataframe = self._get_twitter_data_as_dataframes()
         self.twitter_bags = self._get_twitter_data_as_bags()
         self.twitter_dataframe = self.filter.run_filters(self.twitter_dataframe)
+        self.twitter_dataframe = self.nlp_tools.run_tools(self.twitter_dataframe)
 
         if add_usernames:
             self._add_usernames()
@@ -81,7 +100,7 @@ class DataLoader:
 
         pathname = str(pathname)
 
-        files_list = glob(pathname, recursive=recursive)
+        files_list = glob(pathname, recursive = recursive)
 
         if not files_list:
             raise ValueError('File path given does not return any files')
@@ -187,6 +206,9 @@ class DataLoader:
         :return:
 
         """
+        self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(
+            lambda x: x['screen_name'],
+            meta = str)
         self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(lambda x: x['screen_name'],
                                                                                     meta=str)
 
