@@ -9,8 +9,8 @@ Subpackages
 
    murphy.classification
 
-Submodules
-----------
+Internal Tools
+--------------
 
 murphy.batch\_processing module
 -------------------------------

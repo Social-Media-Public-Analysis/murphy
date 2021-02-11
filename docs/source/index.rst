@@ -10,6 +10,9 @@ Welcome to Murphy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   readme
+   changelog
+
 
 Indices and tables
 ==================
@@ -17,4 +20,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-* :ref:`modules`
+
+.. include:: ../README.rst
