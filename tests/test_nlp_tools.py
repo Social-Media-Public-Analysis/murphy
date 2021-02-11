@@ -93,6 +93,19 @@ class NLPTestCase(unittest.TestCase):
             self._lemmatized_string
         )
 
+    def test_lemmatize_on_dataframe(self):
+        input_data = [[self._test_string, 'other'], ['abcd', 'other2']]
+        output_data = [[self._lemmatized_string, 'other'], ['abcd', 'other2']]
+
+        df = pd.DataFrame(input_data, columns=['text', 'other'])
+        output_df = pd.DataFrame(output_data, columns=['text', 'other'])
+        temp_df = dd.from_pandas(df, npartitions=1)
+        self.assertTrue(
+            self.nlp_tool.lemmatize_tweets(
+                temp_df
+            ).compute().equals(output_df)
+        )
+
     def test_run_nlp_tools(self):
         bool_flag = [True, False]
         for tokenize_flag, filter_stopwords_flag, lemmatize_flag in product(bool_flag, bool_flag, bool_flag):
