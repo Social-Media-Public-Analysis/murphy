@@ -182,8 +182,8 @@ class DataLoader:
 
     def _add_usernames(self):
         """
-        Function to add usernames directly into the twitter_dataframe instead of using the user json file
-
+        Function to add usernames directly into the twitter_dataframe instead of using the user
+        json file
         :return:
 
         """

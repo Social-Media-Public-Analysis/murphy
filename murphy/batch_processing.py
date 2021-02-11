@@ -7,6 +7,11 @@ by applying various functions in batches
 **Note**: This package is written with the hopes to better understand what problems processing such a dataset would be
 encountered, and it is hence written with the understanding that this and other scripts will be refactored
 
+TODO:
+    - This package is written with the hopes to better understand what problems processing such a
+    dataset would be encountered, and it is hence written with the understanding that this and other
+     scripts will be refactored
+    - Add tests
 """
 
 from typing import Callable, Any, Dict, Iterable
