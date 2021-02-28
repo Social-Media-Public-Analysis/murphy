@@ -40,14 +40,21 @@ class DataLoader:
 
         :param remove_emoji: flag for removing emojis from all of the twitter text
 
-        :param remove_retweets_symbols: flag for removing retweet strings from all of the twitter text (`RT @<username
-                                        it's retweeting to>:`)
+        :param remove_retweets_symbols: flag for removing retweet strings from all of the twitter text (`RT @<retweet_username>:`)
 
         :param remove_truncated_tweets: flag for removing all tweets that are truncated, as not all information can be
                                         found in them
 
         :param add_usernames: flag for adding in the user names from who tweeted as a separate column instead of parsing
                               it from the `user` column
+        
+        :param tokenize: tokenize tweets to make them easier to process
+        
+        :param filter_stopwords: remove stopwords from the tweets to make them easier to process
+        
+        :param lemmatize: lemmatize text to make it easier to process
+        
+        :param language: select the language that you want to work with
         """
 
         self.filter = Filter(
