@@ -1,7 +1,7 @@
 # Murphy	
 
 ![Build](https://github.com/Social-Media-Public-Analysis/murpheus/workflows/Build/badge.svg)	
-[![codecov](https://codecov.io/gh/Social-Media-Public-Analysis/murpheus/branch/master/graph/badge.svg?token=S652XM8QA6)](https://codecov.io/gh/Social-Media-Public-Analysis/murphy)	
+[![codecov](https://codecov.io/gh/Social-Media-Public-Analysis/murphy/branch/master/graph/badge.svg?token=S652XM8QA6)](https://codecov.io/gh/Social-Media-Public-Analysis/murphy)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3207d1f12fc95ac9162e/maintainability)](https://codeclimate.com/github/Social-Media-Public-Analysis/murpheus/maintainability)	
 [![GitHub last commit](https://img.shields.io/github/last-commit/Social-Media-Public-Analysis/murpheus.svg?style=flat)]()	
 [![Issues](https://img.shields.io/github/issues-raw/Social-Media-Public-Analysis/murpheus.svg?maxAge=25000)](https://github.com/Twitter-Public-Analysis/Twitter-Public-Analysis/issues)	
