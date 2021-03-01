@@ -33,6 +33,18 @@ Installing with pip is as easy as:
 pip install smpa-murphy
 ```
 
+### Install the latest version:
+
+Installing the latest version is also quite simple. To do so, run the following commands:
+
+```bash
+git clone https://github.com/Social-Media-Public-Analysis/murphy.git # -> clone the repo
+cd murphy                                                            # -> move over to the repo
+python setup.py install                                              # -> install the library directly!
+```
+
+Annddd you're done!
+
 ## Usage:
 
 The usage is fairly straightforward:
