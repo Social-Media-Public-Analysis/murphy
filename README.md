@@ -8,22 +8,30 @@
 [![PRs Welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Social-Media-Public-Analysis/murpheus/pulls)	
 
 
-Murpheus is a powerful analysis tool that is used to analyze a ton of twitter data from the internet archive, and is built to scale from laptop hardware to massive super computer  clusters.
+
+Murpheus is a powerful analysis tool used to analyze a ton of Twitter data from the internet archive. It is built to scale from laptop hardware to massive supercomputer clusters.
+		
 
 ## Motivation
+		
 
-The main goal of this project is to lower the bar for entry for datascientists, researchers and anyone else who wants to analyse and study Twitter datasets. 
+This project's main goal is to lower the bar for entry for data scientists, researchers, and anyone else who wants to analyze and study Twitter datasets. 
+		
 
 Keeping this in mind, we want to build a powerful toolset that can scale this massively, and with everything working right out of the box with minimal support (but if you do need any help, hop on to our [issues](https://github.com/Social-Media-Public-Analysis/murphy/issues) page!). 
+		
 
 ## Frameworks used:
+		
 
-The main framework that we used is [Dask](https://dask.org/), an extremely powerful library that *provides advanced parallelism for analytics, enabling performance at scale for the tools you love*<sup>[[1]](https://dask.org/)</sup>
+The main framework that we used is [Dask](https://dask.org/), a powerful library that *provides advanced parallelism for analytics, enabling performance at scale for the tools you love*<sup>[[1]](https://dask.org/)</sup>
+		
 
 ## Installation:
+		
 
 Before installing, ensure that the version of python that you're using is python>=3.6. 
-We intend to support all of the latest releases of as they come out!
+We intend to support all of the latest releases of Python as they come out!
 
 ### Installing with PIP:
 
