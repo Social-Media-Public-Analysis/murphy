@@ -3,13 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Murphy's documentation!
-==================================
+Murphy by SMPA
+==============
+
+Welcome to Murphy by SMPA!
+
+Murphy is a powerful and scalable dataset that is able to process terabytes of data at scale with little to no problems!
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   modules
 
 
 Indices and tables
