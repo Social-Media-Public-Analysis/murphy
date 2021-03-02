@@ -1,5 +1,5 @@
 .. Murphy documentation master file, created by
-   sphinx-quickstart on Sat Jan 30 01:55:45 2021.
+   sphinx-quickstart on Mon Mar  1 22:18:26 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -10,8 +10,6 @@ Welcome to Murphy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   readme
-   changelog
 
 
 Indices and tables
@@ -20,5 +18,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-.. include:: ../README.rst
