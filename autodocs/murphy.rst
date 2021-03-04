@@ -1,0 +1,53 @@
+murphy package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   murphy.classification
+
+Submodules
+----------
+
+murphy.batch\_processing module
+-------------------------------
+
+.. automodule:: murphy.batch_processing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+murphy.data\_loader module
+--------------------------
+
+.. automodule:: murphy.data_loader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+murphy.filters module
+---------------------
+
+.. automodule:: murphy.filters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+murphy.nlp\_tools module
+------------------------
+
+.. automodule:: murphy.nlp_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: murphy
+   :members:
+   :undoc-members:
+   :show-inheritance:
