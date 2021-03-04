@@ -1,11 +1,16 @@
-Murphy Documentation
-====================
+murphy package
+==============
+
+Subpackages
+-----------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
-Packages inside Murphy
-----------------------
+   murphy.classification
+
+Submodules
+----------
 
 murphy.batch\_processing module
 -------------------------------
