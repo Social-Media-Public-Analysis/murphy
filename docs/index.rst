@@ -30,17 +30,18 @@ Murphy is broken down into several components and subcomponents:
 .. image:: images/overview-diagram.png
    :class: with-shadow float-left
 
+Built on top of Dask
+--------------------
+
+By building on top of Dask, we're able to get massive performance boosts and scalability.
+
+You also have access to individual Dask objects like Dask DataFrames and Dask Bags directly, so you can continue to experiment on your own after using our tools.
+
+
+
 .. toctree::
    :maxdepth: 1
    :caption: Getting Started
 
    installation
    quick-start
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

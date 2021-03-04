@@ -38,3 +38,13 @@ Installing from source is fairly easy:
     .. code-block:: bash
 
         python setup.py install
+
+
+Test
+----
+
+To test that everything is working well:
+
+    .. code-block:: bash
+
+        pytest tests/
