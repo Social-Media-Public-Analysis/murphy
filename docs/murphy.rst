@@ -1,8 +1,6 @@
 Murphy Documentation
 ====================
 
-Murphy is designed in a modular fashion, with the main goal to reduce the workload involved to get developers and data scientists working with little delays.
-
 .. toctree::
    :maxdepth: 2
 

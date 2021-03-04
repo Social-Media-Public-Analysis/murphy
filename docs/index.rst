@@ -3,18 +3,39 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Murphy by SMPA
-==============
+Murphy
+======
 
-Welcome to Murphy by SMPA!
+*Murphy is a text processing library for working with Twitter data, built on top of Dask*
 
-Murphy is a powerful and scalable dataset that is able to process terabytes of data at scale with little to no problems!
+
+Murphy is broken down into several components and subcomponents:
+
+ - **Data Preprocessing**: Creating scalable tools for helping researchers moving forward
+
+   - *NLP Tools*: NLP cleaning tools for *tokenization* and *Lemmatisation*
+
+   - *Filters*: Removing retweet strings, emojis, and other annoyances
+
+   - *Batch Processing*: Applying batch based workloads to make data processing easier
+
+ - **Applying AI Models**: Creating AI models built by us for various purposes
+
+   - *Sentiment Analysis*: Predicting sentiments in tweets!
+
+   - *Emoji Prediction*: Predicting which emojis would work best for a tweet (coming soon!)
+
+   - *And more!* We're still developing, so ideas and contributions are much appreciated!
+
+.. image:: images/overview-diagram.png
+   :class: with-shadow float-left
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :caption: Getting Started
 
-   modules
+   installation
+   quick-start
 
 
 Indices and tables
