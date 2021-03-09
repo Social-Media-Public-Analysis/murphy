@@ -11,7 +11,7 @@ class FilterTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.data_path, self.path_prefix = CommonTestSetup.set_data_dir_path()
         self.data_loader = DataLoader(
-            file_find_expression=self.path_prefix / 'data/test_data/test_sample_files.json.bz2',
+            file_find_expression=self.path_prefix / 'data/test_data/*.json.bz2',
             remove_emoji=False,
             remove_retweets_symbols=False,
             remove_truncated_tweets=False)

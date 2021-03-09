@@ -70,10 +70,16 @@ class Filter:
         return twitter_dataframe
 
     @staticmethod
+    def __check_for_truncated_strings(text: str) -> bool:
+        if text:
+            return text[-1] != Filter._truncated_string
+        return False
+
+    @staticmethod
     def remove_truncated_tweets(tweet_dataframe: Union[dask_dataframe, pd.DataFrame]) -> Union[
         dask_dataframe, pd.DataFrame]:
         tweet_dataframe['is_not_truncated_tweet'] = tweet_dataframe['text'].apply(
-            lambda x: x[-1] != Filter._truncated_string,
+            Filter.__check_for_truncated_strings,
             meta = bool
         )
         tweet_dataframe = tweet_dataframe[tweet_dataframe['is_not_truncated_tweet']]
