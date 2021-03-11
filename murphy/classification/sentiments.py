@@ -1,5 +1,4 @@
 import math
-from pprint import pprint
 from typing import Dict
 
 import nltk

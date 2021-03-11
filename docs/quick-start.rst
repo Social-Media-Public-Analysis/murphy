@@ -1,5 +1,5 @@
-Quick Start
-===========
+Quick Start Guide
+=================
 
 Installation
 ------------
@@ -52,7 +52,7 @@ This is what your output should look like (in a jupyter notebook)
 
 You might be thinking: *So, my data is going to just be loaded from the file? That's it?*
 
-Nope! Copying over a snippet from the `data_loader.DataLoader` documentation
+Nope! Looking at a snippet from the :code:`data_loader.DataLoader` documentation
 
 .. code-block:: python
 
@@ -93,4 +93,4 @@ These are automatically run when you compute the your `twitter_dataframe`, meani
 Now what?
 ---------
 
-Now, you can explore the data to your heart's content! We suggest looking over this `Dask Tutorial <https://tutorial.dask.org/00_overview.html>`_ if you're not familiar with it beforehand, as it'll make exploring the dataset easier
+Now, you can explore the data to your heart's content! We suggest looking over this `Dask Tutorial <https://tutorial.dask.org/00_overview.html>`_ if you're not familiar with Dask already, as it'll make exploring the dataset easier

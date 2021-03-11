@@ -45,4 +45,15 @@ You also have access to individual Dask objects like Dask DataFrames and Dask Ba
 
    installation
    quick-start
+   use-cases
 
+.. toctree::
+   :maxdepth: 1
+   :caption: User Interface
+
+   user-interfaces
+   data-loader
+   nlp-tools
+   filters
+   machine-learning-models
+   api
