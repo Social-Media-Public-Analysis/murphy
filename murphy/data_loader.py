@@ -1,5 +1,7 @@
 """
-A data loader that converts *json.bz2* files into a functional Dask Dataframe.
+A data loader that converts ``json.bz2`` files into a functional Dask Dataframe.
+
+While this module has a ton of functionality, most of it has been abstracted into it's constructor (``__init__``)
 """
 
 import bz2
@@ -46,6 +48,7 @@ class DataLoader:
     :param lemmatize: lemmatize text to make it easier to process
 
     :param language: select the language that you want to work with
+
     """
 
     __instance__ = None

@@ -5,7 +5,7 @@ Murphy's API
    :maxdepth: 2
 
 Data Loader
---------------------------
+-----------
 
 .. automodule:: murphy.data_loader
    :members:
