@@ -1,21 +1,10 @@
-Murphy Documentation
-====================
+Murphy's API
+============
 
 .. toctree::
    :maxdepth: 2
 
-Packages inside Murphy
-----------------------
-
-murphy.batch\_processing module
--------------------------------
-
-.. automodule:: murphy.batch_processing
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-murphy.data\_loader module
+Data Loader
 --------------------------
 
 .. automodule:: murphy.data_loader
@@ -23,7 +12,7 @@ murphy.data\_loader module
    :undoc-members:
    :show-inheritance:
 
-murphy.filters module
+Filters
 ---------------------
 
 .. automodule:: murphy.filters
@@ -31,10 +20,21 @@ murphy.filters module
    :undoc-members:
    :show-inheritance:
 
-murphy.nlp\_tools module
+NLP Tools
 ------------------------
 
 .. automodule:: murphy.nlp_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Batch Processing
+----------------
+
+.. note::
+    This module is written with the hopes to better understand what problems processing such a dataset would be encountered, and hence written in it's current flexible manner
+
+.. automodule:: murphy.batch_processing
    :members:
    :undoc-members:
    :show-inheritance:
