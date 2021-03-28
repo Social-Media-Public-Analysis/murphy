@@ -1,9 +1,5 @@
 """
-author: v2thegreat (v2thegreat@gmail.com)
-
-Package to process tweets from the data_loading in batches to reduce the workload on the scheduler
-by applying various functions in batches
-
+A data loader that converts *json.bz2* files into a functional Dask Dataframe.
 """
 
 import bz2
@@ -19,6 +15,39 @@ from murphy.nlp_tools import NLPTools
 
 
 class DataLoader:
+    """
+
+    This is where you can specify how you want to configure the twitter dataset before you can load it. It's functionality includes:
+
+    - removing emojis
+    - removing retweets symbols
+    - lemmatizing the text
+    - filtering by language
+    - and more!
+
+
+
+    :param file_find_expression: unix-like path that is used for listing out all of the files that we need
+
+    :param remove_emoji: flag for removing emojis from all of the twitter text
+
+    :param remove_retweets_symbols: flag for removing retweet strings from all of the twitter text (`RT @<retweet_username>:`)
+
+    :param remove_truncated_tweets: flag for removing all tweets that are truncated, as not all information can be
+                                    found in them
+
+    :param add_usernames: flag for adding in the user names from who tweeted as a separate column instead of parsing
+                          it from the `user` column
+
+    :param tokenize: tokenize tweets to make them easier to process
+
+    :param filter_stopwords: remove stopwords from the tweets to make them easier to process
+
+    :param lemmatize: lemmatize text to make it easier to process
+
+    :param language: select the language that you want to work with
+    """
+
     __instance__ = None
 
     def __init__(self,
@@ -32,42 +61,18 @@ class DataLoader:
                  lemmatize: bool = True,
                  language: str = 'english'
                  ):
-        """
-
-        This is where you can specify how you want to configure the twitter dataset before you start processing it.
-
-        :param file_find_expression: unix-like path that is used for listing out all of the files that we need
-
-        :param remove_emoji: flag for removing emojis from all of the twitter text
-
-        :param remove_retweets_symbols: flag for removing retweet strings from all of the twitter text (`RT @<retweet_username>:`)
-
-        :param remove_truncated_tweets: flag for removing all tweets that are truncated, as not all information can be
-                                        found in them
-
-        :param add_usernames: flag for adding in the user names from who tweeted as a separate column instead of parsing
-                              it from the `user` column
-        
-        :param tokenize: tokenize tweets to make them easier to process
-        
-        :param filter_stopwords: remove stopwords from the tweets to make them easier to process
-        
-        :param lemmatize: lemmatize text to make it easier to process
-        
-        :param language: select the language that you want to work with
-        """
 
         self.filter = Filter(
-            remove_emoji = remove_emoji,
-            remove_retweets = remove_retweets_symbols,
-            remove_truncated_tweets = remove_truncated_tweets
+            remove_emoji=remove_emoji,
+            remove_retweets=remove_retweets_symbols,
+            remove_truncated_tweets=remove_truncated_tweets
         )
 
         self.nlp_tools = NLPTools(
-            tokenize = tokenize,
-            filter_stopwords = filter_stopwords,
-            lemmatize = lemmatize,
-            language = language
+            tokenize=tokenize,
+            filter_stopwords=filter_stopwords,
+            lemmatize=lemmatize,
+            language=language
         )
 
         self.file_find_expression = file_find_expression
@@ -107,7 +112,7 @@ class DataLoader:
 
         pathname = str(pathname)
 
-        files_list = glob(pathname, recursive = recursive)
+        files_list = glob(pathname, recursive=recursive)
 
         if not files_list:
             raise ValueError('File path given does not return any files')
@@ -215,7 +220,7 @@ class DataLoader:
         """
         self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(
             lambda x: x['screen_name'],
-            meta = str)
+            meta=str)
         self.twitter_dataframe['user_names'] = self.twitter_dataframe['user'].apply(lambda x: x['screen_name'],
                                                                                     meta=str)
 

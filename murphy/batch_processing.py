@@ -1,16 +1,11 @@
 """
-Package to process tweets from the data_loading in batches to reduce the workload on the scheduler
+Module to process tweets from the data_loading in batches to reduce the workload on the scheduler
 by applying various functions in batches
-
-**Note**: This package is written with the hopes to better understand what problems processing such a dataset would be
-encountered, and it is hence written with the understanding that this and other scripts will be refactored
-
-TODO:
-    - This package is written with the hopes to better understand what problems processing such a
-    dataset would be encountered, and it is hence written with the understanding that this and other
-     scripts will be refactored
-    - Add tests
 """
+
+# TODO:
+#     - This package is written with the hopes to better understand what problems processing such a dataset would be encountered, and it is hence written with the understanding that this and other scripts will be refactored
+#     - Add (better) tests
 
 from typing import Callable, Any, Dict, Iterable
 from tqdm import tqdm
