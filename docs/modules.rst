@@ -1,7 +1,7 @@
-murphy
+Murphy's Tools
 ======
 
 .. toctree::
    :maxdepth: 4
 
-   murphy
+   Murphy
