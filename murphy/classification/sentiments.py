@@ -45,6 +45,7 @@ class Sentiments:
         """
         Run sentiment analysis using the library NLTK. Runs default sentiment on vader lexicon
         Works based on bag of words and positive and negative word lookups
+
         :param text: text to be analyzed
         :return: sentiment compound for given text
         """
@@ -58,6 +59,7 @@ class Sentiments:
         """
         Run sentiment analysis using the library textblob. Returns default sentiment
         Works similar to NLTK's sentiment analysis, but includes subjectivity analysis
+
         :param text: text to be analyzed
         :return: sentiment for given text
         """
@@ -75,6 +77,7 @@ class Sentiments:
     def multiple_sentiment_analysis(cls, text: str) -> Dict[str, float]:
         """
         Returns the sentiment using all implemented models as a dictionary
+
         :param text: text to run sentiment analysis on
         :return: key pair values of name of the sentiment function and their estimations
         """
