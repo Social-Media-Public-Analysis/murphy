@@ -52,6 +52,7 @@ You also have access to individual Dask objects like Dask DataFrames and Dask Ba
    :caption: API
 
    api
+   murphy.classification
 ..
    user-interfaces
    data-loader

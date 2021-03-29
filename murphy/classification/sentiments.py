@@ -32,7 +32,7 @@ class Sentiments:
             raise RuntimeError(f"Singleton {self.__class__.__name__} class is created more than once!")
 
     @staticmethod
-    def get_instance():
+    def _get_instance():
         """
         Returns a singleton instance of this Sentiments class
         """
@@ -51,7 +51,7 @@ class Sentiments:
         if not text:
             return math.nan
 
-        return Sentiments.get_instance().NLTK_SENTIMENT_INTENSITY_ANALYZER.polarity_scores(text=text)['compound']
+        return Sentiments._get_instance().NLTK_SENTIMENT_INTENSITY_ANALYZER.polarity_scores(text=text)['compound']
 
     @staticmethod
     def sentiment_analysis_textblob(text: str) -> float:
@@ -73,6 +73,11 @@ class Sentiments:
 
     @classmethod
     def multiple_sentiment_analysis(cls, text: str) -> Dict[str, float]:
+        """
+        Returns the sentiment using all implemented models as a dictionary
+        :param text: text to run sentiment analysis on
+        :return: key pair values of name of the sentiment function and their estimations
+        """
         return {sentiment: sentiment_function(text) for sentiment, sentiment_function in
                 cls._sentiment_function_mapping.items()}
 

@@ -5,3 +5,4 @@ Murphy's Tools
    :maxdepth: 4
 
    Murphy
+   Murphy.classification
