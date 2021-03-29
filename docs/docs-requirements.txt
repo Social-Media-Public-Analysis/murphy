@@ -1,3 +1,14 @@
 sphinx-copybutton
 sphinxemoji
+tqdm
+numpy
+pandas
 dask[complete]
+nltk
+pytest
+pyfiglet
+textblob
+emoji
+spacy
+scikit-learn
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz#egg=en_core_web_sm
