@@ -1,4 +1,4 @@
 ignore:
-  - setup.py
-  - tests/
-  - notebooks/
+  - "setup.py"
+  - "tests/"
+  - "notebooks/*.py"
